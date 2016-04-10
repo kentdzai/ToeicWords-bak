@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLuyenNoi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.groupthree.toeicword.controller.luyentap.LuyenNoiActivity">
+
+    <TextView
+        android:id="@+id/tvnType"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="(v)"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvnWord"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/blue_btn_bg_pressed_color"
+        android:gravity="center"
+        android:text="Resolve"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvnPhonetic"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="[ri'zɔlv]"
+        android:textColor="@color/blue_btn_bg_pressed_color"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvnMean"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="giải quyết; quyết tâm; kiên quyết; quyết định"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/ibnMic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:background="@color/white"
+            android:src="@mipmap/ic_microphone" />
+
+        <ImageButton
+            android:id="@+id/ibnSpeaker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:background="@color/white"
+            android:src="@mipmap/ic_speak" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btnnNext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Từ tiếp theo"
+            android:theme="@style/btnLuyenNghe" />
+
+        <Button
+            android:id="@+id/btnnExit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Thoát"
+            android:theme="@style/btnLuyenNghe" />
+    </LinearLayout>
+</LinearLayout>

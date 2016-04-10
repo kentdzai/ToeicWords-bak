@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLuyenNghe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.groupthree.toeicword.controller.luyentap.LuyenNgheActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/blue_btn_bg_pressed_color"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btnnListen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/blue_btn_bg_pressed_color"
+                android:src="@mipmap/ic_speak" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhấn nút để nghe lại" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <Button
+                android:id="@+id/btnnAns1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="vị trí"
+                android:theme="@style/btnLuyenNghe" />
+
+
+            <Button
+                android:id="@+id/btnnAns2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="nhìn lướt"
+                android:theme="@style/btnLuyenNghe" />
+
+            <Button
+                android:id="@+id/btnnAns3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="bắt buộc"
+                android:theme="@style/btnLuyenNghe" />
+
+            <Button
+                android:id="@+id/btnnAns4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="đặt trước"
+                android:theme="@style/btnLuyenNghe" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Tiếp theo"
+            android:theme="@style/btnLuyenNghe"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

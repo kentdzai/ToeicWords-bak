@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#364fe7"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingBottom="10dp"
+    android:orientation="vertical"
+    tools:context="com.groupthree.toeicword.controller.luyentap.TracNghiemActivity">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        style="@style/my_layout">
+
+        <TextView
+            android:id="@+id/tvChuDe2"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Marketing - Tiếp thị"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="#fff"
+        android:id="@+id/llTuVung"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvSTTCauHoi2"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:background="#303f9f"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1/12"/>
+
+        <TextView
+            android:id="@+id/tvTuVung2"
+            android:text="Từ vựng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:textStyle="bold"
+            android:textColor="#333"
+            android:textSize="40sp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/btnLatTu"
+            style="@style/my_button"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:text="Lật từ" />
+
+        <Button
+            android:id="@+id/btnTiepTheo"
+            style="@style/my_button"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:text="Từ tiếp theo" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnThoat"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        style="@style/my_button"
+        android:text="Thoát" />
+
+
+</LinearLayout>
+</ScrollView>
