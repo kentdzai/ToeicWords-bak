@@ -47,6 +47,7 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
     boolean nhac_tu;
     Timer timer;
     Handler uiHandler;
+    NotificationCompat.Builder builder;
 
     NotificationManager notificationManager;
 
@@ -95,7 +96,7 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
     public void setupNotification() {
         notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext())
+        builder = new NotificationCompat.Builder(getBaseContext())
                 .setContentTitle("Nhắc từ").setContentText("chạm để đóng nhắc từ")
                 .setSmallIcon(R.mipmap.ic_launcher);
         builder.setOngoing(true);
@@ -156,6 +157,8 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
                 tvPhonetic.setText(phien_am);
                 tvSortMean.setText(w.SortMean);
                 lnNhacTu.setBackgroundColor(color);
+                builder.setContentTitle(w.Word);
+                notificationManager.notify(6969, builder.build());
             }
         }, 0);
     }
