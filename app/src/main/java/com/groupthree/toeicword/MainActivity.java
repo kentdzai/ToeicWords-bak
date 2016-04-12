@@ -14,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,14 +44,21 @@ import com.groupthree.toeicword.model.ToeicWordPreferences;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity
+        implements AdapterView.OnItemClickListener,
+        SharedPreferences.OnSharedPreferenceChangeListener {
+
     ArrayAdapter<String> adapterSearch;
     ArrayList<String> arrSearch;
 
+    int pos;
+
     ListView lvMain;
     ArrayList<NavigationMain> arrN;
+
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+
     final String[] btnNhacTu = {"Bật nhắc từ", "Tắt nhắc từ"};
     final String[] btnKhoaManHinh = {"Bật khóa màn hình", "Tắt khóa màn hình"};
 
@@ -105,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         pref.registerOnSharedPreferenceChangeListener(this);
         editor = pref.edit();
+        pos = pref.getInt(ToeicWordPreferences.pos_nhac_tu, 0);
         lvMain = (ListView) findViewById(R.id.lvMain);
         rootMain = (LinearLayout) findViewById(R.id.rootMain);
         setTypeNhacTu(0);
@@ -136,8 +145,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void setTypeNhacTu(int type) {
         boolean get_nhac_tu = pref.getBoolean(ToeicWordPreferences.nhac_tu, false);
         if (type == 0) {
+            Intent itNhacTuService1 = new Intent(MainActivity.this, NhacTuService.class);
             if (get_nhac_tu) {
                 Title[3] = btnNhacTu[1];
+                editor.putInt(ToeicWordPreferences.pos_nhac_tu,
+                        pref.getInt(ToeicWordPreferences.pos_nhac_tu, pos))
+                        .commit();
+                itNhacTuService1.putExtra(ToeicWordPreferences.nhac_tu, true);
+                startService(itNhacTuService1);
             } else {
                 Title[3] = btnNhacTu[0];
             }

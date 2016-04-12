@@ -133,7 +133,7 @@ public class NhacTuService extends Service
     }
 
     public int getColor() {
-        return Color.parseColor(pref.getString(ToeicWordPreferences.list_color, "#3F51B5"));
+        return Color.parseColor(pref.getString(ToeicWordPreferences.list_color, "#FF5722"));
     }
 
     private void setupView() {
