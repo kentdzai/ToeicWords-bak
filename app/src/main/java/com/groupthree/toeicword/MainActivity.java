@@ -38,6 +38,7 @@ import com.groupthree.toeicword.controller.khoamanhinh.ServiceTest;
 import com.groupthree.toeicword.controller.nhactu.NhacTuService;
 import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.ListWord;
+import com.groupthree.toeicword.model.ToeicWordPreferences;
 
 import java.util.ArrayList;
 
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         itLockScreenService = new Intent(getApplicationContext(), ServiceTest.class);
         if (getListWord().size() < 2) {
             arrN.set(2, new NavigationMain(Image[2], "Bật khóa màn hình"));
-            editor.putBoolean("khoa_man_hinh", false);
+            editor.putBoolean(ToeicWordPreferences.khoa_man_hinh, false);
             stopService(itLockScreenService);
         }
         editor.commit();
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void setTypeKhoaManHinh(int type) {
-        boolean khoa_man_hinh = pref.getBoolean("khoa_man_hinh", false);
+        boolean khoa_man_hinh = pref.getBoolean(ToeicWordPreferences.khoa_man_hinh, false);
         if (type == 0) {
             if (khoa_man_hinh) {
                 Title[2] = btnKhoaManHinh[1];
@@ -133,22 +134,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void setTypeNhacTu(int type) {
-        boolean nhac_tu = pref.getBoolean("nhac_tu", false);
+        boolean get_nhac_tu = pref.getBoolean(ToeicWordPreferences.nhac_tu, false);
         if (type == 0) {
-            if (nhac_tu) {
+            if (get_nhac_tu) {
                 Title[3] = btnNhacTu[1];
             } else {
                 Title[3] = btnNhacTu[0];
             }
         } else {
             Intent itNhacTuService = new Intent(MainActivity.this, NhacTuService.class);
-            if (nhac_tu) {
+            if (get_nhac_tu) {
                 Title[3] = btnNhacTu[1];
-                itNhacTuService.putExtra("nhac_tu", true);
+                itNhacTuService.putExtra(ToeicWordPreferences.nhac_tu, true);
+                editor.putInt(ToeicWordPreferences.pos_nhac_tu, 0);
+                editor.commit();
                 startService(itNhacTuService);
             } else {
                 Title[3] = btnNhacTu[0];
-                itNhacTuService.putExtra("nhac_tu", false);
+                itNhacTuService.putExtra(ToeicWordPreferences.nhac_tu, false);
                 stopService(itNhacTuService);
             }
         }
@@ -193,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 TextView tvKhoaManHinh = (TextView) view.findViewById(R.id.lvm_title);
                 if (getListWord().size() < 2) {
                     stopService(itLockScreenService);
-                    editor.putBoolean("khoa_man_hinh", false);
+                    editor.putBoolean(ToeicWordPreferences.khoa_man_hinh, false);
                     thongBao().show();
                 } else {
                     String kmh = tvKhoaManHinh.getText().toString();
@@ -201,12 +204,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         tvKhoaManHinh.setText(btnKhoaManHinh[1]);
                         startService(itLockScreenService);
                         sendBroadcast(itReceiver);
-                        editor.putBoolean("khoa_man_hinh", true);
+                        editor.putBoolean(ToeicWordPreferences.khoa_man_hinh, true);
                     }
                     if (kmh.equals(btnKhoaManHinh[1])) {
                         tvKhoaManHinh.setText(btnKhoaManHinh[0]);
                         stopService(itLockScreenService);
-                        editor.putBoolean("khoa_man_hinh", false);
+                        editor.putBoolean(ToeicWordPreferences.khoa_man_hinh, false);
                     }
                     editor.commit();
                 }
@@ -216,11 +219,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 String batOrTat = tvNhacTu.getText().toString();
                 if (batOrTat.equals(btnNhacTu[0])) {
                     tvNhacTu.setText(btnNhacTu[1]);
-                    editor.putBoolean("nhac_tu", true);
+                    editor.putBoolean(ToeicWordPreferences.nhac_tu, true);
                 }
                 if (batOrTat.equals(btnNhacTu[1])) {
                     tvNhacTu.setText(btnNhacTu[0]);
-                    editor.putBoolean("nhac_tu", false);
+                    editor.putBoolean(ToeicWordPreferences.nhac_tu, false);
                 }
                 editor.commit();
                 break;
@@ -274,10 +277,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals("nhac_tu")) {
+        if (key.equals(ToeicWordPreferences.nhac_tu)) {
             setTypeNhacTu(1);
         }
-        if (key.equals("khoa_man_hinh")) {
+        if (key.equals(ToeicWordPreferences.khoa_man_hinh)) {
             setTypeKhoaManHinh(1);
         }
     }
@@ -291,10 +294,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void showShare() {
         shareDialog = new ShareDialog(this);
         ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentTitle("Một ứng dụng học từ vựng tiếng anh thật tuyệt vời")
-                .setImageUrl(Uri.parse("https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1530451_594845904003981_2510383800762108996_n.jpg?oh=39a9e6b6c53578b9378af38fcd5db749&oe=5787DE5D"))
-                .setContentDescription("Tải và cài đặt ngay hôm nay")
-                .setContentUrl(Uri.parse("https://www.facebook.com/hoc600tuvungtienganh/"))
+                .setContentTitle(getResources().getString(R.string.share_content_title))
+                .setImageUrl(Uri.parse(getResources().getString(R.string.image_share_facebook)))
+                .setContentDescription(getResources().getString(R.string.share_description))
+                .setContentUrl(Uri.parse(getResources().getString(R.string.url_fanpage)))
                 .build();
         shareDialog.show(content);
     }

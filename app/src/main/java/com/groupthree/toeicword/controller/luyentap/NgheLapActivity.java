@@ -112,12 +112,7 @@ public class NgheLapActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (timer != null) {
-            timer.cancel();
-        }
-        if (med != null && med.isPlaying()) {
-            med.release();
-        }
+        onStopActivity();
     }
 
     @Override
@@ -142,7 +137,6 @@ public class NgheLapActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onStopActivity();
                 finish();
         }
         return super.onOptionsItemSelected(item);
@@ -151,16 +145,15 @@ public class NgheLapActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        onStopActivity();
         finish();
     }
 
     public void onStopActivity() {
-        if (timer != null) {
-            timer.cancel();
-        }
         if (med != null && med.isPlaying()) {
             med.release();
+        }
+        if (timer != null) {
+            timer.cancel();
         }
     }
 }
