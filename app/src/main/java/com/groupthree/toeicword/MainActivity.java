@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getMenuInflater().inflate(R.menu.menumain, menu);
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
+        final SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
@@ -329,18 +329,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                         TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
                         db = new DatabaseWord(getApplicationContext());
                         int result = db.queryIdWithWord(tv.getText().toString());
                         if (result != -1) {
                             Intent it = new Intent(MainActivity.this, DetailsWord.class);
                             it.putExtra("from", "MAIN");
                             it.putExtra("Id", result);
-
-
-//                            Toast.makeText(MainActivity.this, ""+result, Toast.LENGTH_SHORT).show();
                             startActivity(it);
                         }
                     }

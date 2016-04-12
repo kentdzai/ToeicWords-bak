@@ -7,7 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.groupthree.toeicword.controller.ToeicWordPreferences;
+import com.groupthree.toeicword.model.ToeicWordPreferences;
 import com.groupthree.toeicword.controller.khoamanhinh.ServiceTest;
 import com.groupthree.toeicword.controller.nhactu.NhacTuService;
 import com.groupthree.toeicword.model.DatabaseWord;

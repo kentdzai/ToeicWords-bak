@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.groupthree.toeicword.R;
-import com.groupthree.toeicword.controller.ToeicWordPreferences;
+import com.groupthree.toeicword.model.ToeicWordPreferences;
 import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.Word;
 

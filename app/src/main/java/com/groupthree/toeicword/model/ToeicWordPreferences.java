@@ -1,4 +1,4 @@
-package com.groupthree.toeicword.controller;
+package com.groupthree.toeicword.model;
 
 /**
  * Created by Kent on 4/12/2016.
