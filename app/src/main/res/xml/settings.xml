@@ -17,7 +17,7 @@
             android:title="Chế độ màu sắc" />
 
         <ListPreference
-            android:defaultValue="#3F51B5"
+            android:defaultValue="#FF5722"
             android:entries="@array/pref_color_titles"
             android:entryValues="@array/pref_color_values"
             android:key="list_color"

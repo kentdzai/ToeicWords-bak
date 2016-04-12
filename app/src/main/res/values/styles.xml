@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
     <style name="btnMain" parent="Theme.AppCompat.Light">
@@ -14,19 +14,21 @@
         <item name="android:layout_gravity">left|center_vertical</item>
     </style>
 
-    <style name="btnLuyenNghe" parent="Theme.AppCompat.Light">
+    <style name="btnLuyenTap" parent="Theme.AppCompat.Light">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:colorButtonNormal" tools:targetApi="lollipop">
-            @color/blue_btn_bg_pressed_color
+            @color/primary_dark
         </item>
         <item name="android:colorControlHighlight" tools:targetApi="lollipop">
-            @color/colorPrimaryDark
+            @color/primary_light
         </item>
         <item name="android:radius">10dp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:elevation" tools:ignore="NewApi">10dp</item>
     </style>
 
     <style name="my_button">
@@ -35,6 +37,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/cuttom_button</item>
     </style>
+
 
     <style name="btnFail">
         <item name="android:colorButtonNormal" tools:targetApi="lollipop">

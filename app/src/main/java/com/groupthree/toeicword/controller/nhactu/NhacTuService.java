@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -43,7 +44,7 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
     int color;
     String phien_am;
     int[] arrColor;
-    int pos = -1;
+    int pos;
     boolean nhac_tu;
     Timer timer;
     Handler uiHandler;
@@ -71,6 +72,11 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
                 stopService(intent);
                 pref.edit().putBoolean("nhac_tu", false).commit();
             }
+        } else {
+            getWord();
+            uiHandler = new Handler(getMainLooper());
+            init();
+            pref.edit().putBoolean("nhac_tu", true).commit();
         }
         return START_STICKY;
     }
@@ -159,6 +165,7 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
                 lnNhacTu.setBackgroundColor(color);
                 builder.setContentTitle(w.Word);
                 notificationManager.notify(6969, builder.build());
+                Log.e("my_watch", "xxx " + w.Word);
             }
         }, 0);
     }
@@ -168,12 +175,12 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                setupText(pos, getPhienAm(), getColorRandom());
                 if (pos < arrW.size() - 1) {
                     pos++;
                 } else {
                     pos = 0;
                 }
-                setupText(pos, getPhienAm(), getColorRandom());
             }
         }, 0, getTime() * 1000L);
     }
@@ -204,6 +211,5 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
         if (notificationManager != null) {
             notificationManager.cancel(6969);
         }
-
     }
 }

@@ -21,5 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Bắt đầu luyện tập" />
+        android:text="Bắt đầu luyện tập"
+        android:textColor="@color/white"
+        android:background="#E64A19"/>
 </RelativeLayout>
