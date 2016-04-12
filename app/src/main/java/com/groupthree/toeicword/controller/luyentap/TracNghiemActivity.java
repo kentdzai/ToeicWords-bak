@@ -161,7 +161,7 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
         pbTime = (ProgressBar) findViewById(R.id.pbTime);
         shake = AnimationUtils.loadAnimation(this, R.anim.button_animation);
         pbTime.setMax(30);
-        ct = new CountDownTimer(3000, 1000) {
+        ct = new CountDownTimer(2000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 

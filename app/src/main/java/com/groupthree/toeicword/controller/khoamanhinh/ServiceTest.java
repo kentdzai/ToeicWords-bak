@@ -26,6 +26,9 @@ public class ServiceTest extends Service implements SharedPreferences.OnSharedPr
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        Intent intent1 = new Intent("test");
+        sendBroadcast(intent1);
+
         receiver = new LockScreenReceiver();
 
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -39,6 +42,7 @@ public class ServiceTest extends Service implements SharedPreferences.OnSharedPr
         if (isStartRecever) {
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_SCREEN_OFF);
+            filter.addAction(Intent.ACTION_BOOT_COMPLETED);
             registerReceiver(receiver, filter);
         } else {
             if (null != receiver) {
@@ -96,7 +100,6 @@ public class ServiceTest extends Service implements SharedPreferences.OnSharedPr
     public void onDestroy() {
         super.onDestroy();
         stateRecever(false);
-        setStandardKeyguardState(true);
     }
 
     @Override

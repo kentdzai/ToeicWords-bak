@@ -126,6 +126,17 @@ public class DatabaseWord extends SQLiteOpenHelper {
         return arrL;
     }
 
+    public ArrayList<String> queryListWord2(String query) {
+        db = getReadableDatabase();
+        ArrayList<String> arrL = new ArrayList<String>();
+        Cursor c = db.rawQuery(query, null);
+        while (c.moveToNext()) {
+            arrL.add(c.getString(0));
+        }
+        c.close();
+        return arrL;
+    }
+
     public void updateFavourite(ListWord lw) {
         db = getWritableDatabase();
         values = new ContentValues();

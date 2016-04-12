@@ -29,7 +29,7 @@ public class LockScreenReceiver extends BroadcastReceiver implements SharedPrefe
         editor = pref.edit();
         itLockScreenService = new Intent(context, LockScreenService.class);
             if (null != context) {
-                if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                if (action.equals(Intent.ACTION_SCREEN_OFF) || action.equals(Intent.ACTION_BOOT_COMPLETED)) {
 
                     TelephonyManager tManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                     boolean isPhoneIdle = tManager.getCallState() == TelephonyManager.CALL_STATE_IDLE;

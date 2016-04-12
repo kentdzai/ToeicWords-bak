@@ -114,7 +114,7 @@ public class DetailsWord extends AppCompatActivity implements View.OnClickListen
 
     public Word getWord() {
         db = new DatabaseWord(getApplication());
-        w = db.queryWordWithId(getIntent().getIntExtra("Id", 0));
+        w = db.queryWordWithId(getIntent().getIntExtra("Id", 1));
         lw = new ListWord(w.id, w.Word, w.Mean, w.FavouriteWord);
         return w;
     }

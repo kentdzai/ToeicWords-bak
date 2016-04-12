@@ -196,6 +196,7 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
         super.onDestroy();
         if (view != null) {
             windowManager.removeView(view);
+            stopSelf(0);
         }
         if (timer != null) {
             timer.cancel();
