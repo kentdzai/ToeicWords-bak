@@ -16,8 +16,13 @@
     <string name="facebook_app_id">1720730838211803</string>
     <string name="search_hint">Nhập từ bạn muốn tìm</string>
     <string name="search_title">Tìm kiếm</string>
-
-
+    <string name="share_content_title">Một ứng dụng học từ vựng tiếng anh thật tuyệt vời</string>
+    <string name="image_share_facebook">
+        https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1530451_594845904003981_2510383800762108996_n.jpg?oh=39a9e6b6c53578b9378af38fcd5db749
+        &amp;oe=5787DE5D
+    </string>
+    <string name="url_fanpage">https://www.facebook.com/hoc600tuvungtienganh</string>
+    <string name="share_description">Tải và cài đặt ngay hôm nay</string>
     <!-- Settings -->
     <string-array name="pref_thoi_gian_nhac_tu_titles">
         <item>3 giây</item>
