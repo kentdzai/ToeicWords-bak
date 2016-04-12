@@ -17,6 +17,8 @@ import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.Word;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class NgheLapActivity extends AppCompatActivity {
     LinearLayout rootNgheLap;
@@ -27,6 +29,9 @@ public class NgheLapActivity extends AppCompatActivity {
     int pos = -1;
     float fromx;
     float tox;
+    Timer timer;
+    Handler uiHandler;
+    MediaPlayer med;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class NgheLapActivity extends AppCompatActivity {
     }
 
     private void init() {
+        uiHandler = new Handler(getMainLooper());
         setupActionBar();
         getWord();
         rootNgheLap = (LinearLayout) findViewById(R.id.rootNgheLap);
@@ -45,27 +51,29 @@ public class NgheLapActivity extends AppCompatActivity {
         tvnlMean = (TextView) findViewById(R.id.tvnlMean);
         tvnlSentence = (TextView) findViewById(R.id.tvnlSentence);
         tvnlSentenceMean = (TextView) findViewById(R.id.tvnlSentenceMean);
-        lapNghe();
     }
 
-    public void setupWord(int pos, float fromx, float tox) {
-        w = arrW.get(pos);
-        tvnlType.setText(new StringBuilder().append("(").append(w.Type).append(")"));
-        tvnlWord.setText(w.Word);
-        tvnlPhonetic.setText(w.Phonetic);
-        tvnlMean.setText(w.Mean);
-        tvnlSentence.setText(w.Sentence);
-        tvnlSentenceMean.setText(w.SentenceMean);
-        new Handler().postDelayed(new RunablePlayer(), 150);
-        ObjectAnimator animator = ObjectAnimator.ofFloat(rootNgheLap, "x", fromx, tox);
-        ObjectAnimator rootFadeOut = ObjectAnimator.ofFloat(rootNgheLap, "alpha", 0.4f, 1f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(animator, rootFadeOut);
-        set.setDuration(1000);
-        set.start();
+    public void setupWord(final int pos, final float fromx, final float tox) {
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                w = arrW.get(pos);
+                tvnlType.setText(new StringBuilder().append("(").append(w.Type).append(")"));
+                tvnlWord.setText(w.Word);
+                tvnlPhonetic.setText(w.Phonetic);
+                tvnlMean.setText(w.Mean);
+                tvnlSentence.setText(w.Sentence);
+                tvnlSentenceMean.setText(w.SentenceMean);
+                new Handler().postDelayed(new RunablePlayer(), 150);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(rootNgheLap, "x", fromx, tox);
+                ObjectAnimator rootFadeOut = ObjectAnimator.ofFloat(rootNgheLap, "alpha", 0.4f, 1f);
+                AnimatorSet set = new AnimatorSet();
+                set.playTogether(animator, rootFadeOut);
+                set.setDuration(1000);
+                set.start();
+            }
+        });
     }
-
-    MediaPlayer med;
 
     public class RunablePlayer implements Runnable {
         @Override
@@ -74,15 +82,11 @@ public class NgheLapActivity extends AppCompatActivity {
         }
     }
 
-    Handler handler;
-    Runnable runnable;
-
-    public void lapNghe() {
-        handler = new Handler();
-        runnable = new Runnable() {
+    public void setupLoop() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                handler.postDelayed(runnable, 4000);
                 if (pos < arrW.size() - 1) {
                     pos++;
                 } else {
@@ -92,8 +96,7 @@ public class NgheLapActivity extends AppCompatActivity {
                 tox = rootNgheLap.getX();
                 setupWord(pos, fromx, tox);
             }
-        };
-        runnable.run();
+        }, 0, 4000);
     }
 
     public void playMp3() {
@@ -107,9 +110,25 @@ public class NgheLapActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (timer != null) {
+            timer.cancel();
+        }
+        if (med != null && med.isPlaying()) {
+            med.release();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupLoop();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        handler.removeCallbacks(runnable);
     }
 
     private void setupActionBar() {
@@ -118,7 +137,6 @@ public class NgheLapActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -138,6 +156,9 @@ public class NgheLapActivity extends AppCompatActivity {
     }
 
     public void onStopActivity() {
+        if (timer != null) {
+            timer.cancel();
+        }
         if (med != null && med.isPlaying()) {
             med.release();
         }
