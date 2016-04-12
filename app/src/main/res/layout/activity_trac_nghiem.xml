@@ -2,135 +2,130 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#364fe7"
-    android:layout_height="match_parent">
-
-<LinearLayout
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="5dp"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:paddingBottom="10dp"
-    android:orientation="vertical"
-    tools:context="com.groupthree.toeicword.controller.luyentap.TracNghiemActivity">
+    android:background="@color/white">
 
     <LinearLayout
-        android:id="@+id/ll1"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        style="@style/my_layout">
-
-        <TextView
-            android:id="@+id/tvChuDe"
-            android:textSize="20sp"
-            android:textColor="#fff"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Marketing - Tiếp thị"/>
-
-    </LinearLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp">
-
-        <ProgressBar
-            android:id="@+id/pbTime"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/tvTime"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:id="@+id/tvTime"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:text="30s"
-            android:textColor="#fff"
-            android:padding="5dp"
-            android:gravity="center"
-            android:background="@drawable/cuttom_background_circle"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:background="#fff"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        tools:context="com.groupthree.toeicword.controller.luyentap.TracNghiemActivity">
 
-        <TextView
-            android:id="@+id/tvSTTCauHoi"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:textStyle="bold"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:background="#303f9f"
+        <LinearLayout
+            android:id="@+id/ll1"
+            style="@style/my_layout"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvChuDe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Marketing - Tiếp thị"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1/12"/>
+            android:layout_marginBottom="10dp">
 
-        <TextView
-            android:id="@+id/tvTuVung"
-            android:text="Từ vựng"
+            <ProgressBar
+                android:id="@+id/pbTime"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tvTime" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/cuttom_background_circle"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="30s"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
-            android:textStyle="bold"
-            android:textColor="#333"
-            android:textSize="40sp"/>
+            android:background="#fff"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvSTTCauHoi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="1/12"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTuVung"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="Từ vựng"
+                android:textColor="#333"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnTL1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Trả lời 1"
+            android:theme="@style/btnLuyenTap" />
+
+        <Button
+            android:id="@+id/btnTL2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Trả lời 2"
+            android:theme="@style/btnLuyenTap" />
+
+        <Button
+            android:id="@+id/btnTL3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Trả lời 3"
+            android:theme="@style/btnLuyenTap" />
+
+        <Button
+            android:id="@+id/btnTL4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="Trả lời 4"
+            android:theme="@style/btnLuyenTap" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnTL1"
-        style="@style/my_button"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginBottom="3dp"
-        android:text="Trả lời 1" />
-
-    <Button
-        android:id="@+id/btnTL2"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="10dp"
-        style="@style/my_button"
-        android:text="Trả lời 2" />
-
-    <Button
-        android:id="@+id/btnTL3"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="3dp"
-        style="@style/my_button"
-        android:text="Trả lời 3" />
-
-    <Button
-        android:id="@+id/btnTL4"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="3dp"
-        style="@style/my_button"
-        android:text="Trả lời 4" />
-
-</LinearLayout>
 </ScrollView>

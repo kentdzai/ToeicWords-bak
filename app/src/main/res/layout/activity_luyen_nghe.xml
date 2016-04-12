@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="vị trí"
-                android:theme="@style/btnLuyenNghe" />
+                android:theme="@style/btnLuyenTap" />
 
 
             <Button
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="nhìn lướt"
-                android:theme="@style/btnLuyenNghe" />
+                android:theme="@style/btnLuyenTap" />
 
             <Button
                 android:id="@+id/btnnAns3"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="bắt buộc"
-                android:theme="@style/btnLuyenNghe" />
+                android:theme="@style/btnLuyenTap" />
 
             <Button
                 android:id="@+id/btnnAns4"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="đặt trước"
-                android:theme="@style/btnLuyenNghe" />
+                android:theme="@style/btnLuyenTap" />
         </LinearLayout>
 
         <Button
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Tiếp theo"
-            android:theme="@style/btnLuyenNghe"
+            android:theme="@style/btnLuyenTap"
             android:visibility="gone" />
 
     </LinearLayout>

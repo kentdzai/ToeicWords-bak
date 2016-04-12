@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -159,6 +160,7 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
                 lnNhacTu.setBackgroundColor(color);
                 builder.setContentTitle(w.Word);
                 notificationManager.notify(6969, builder.build());
+                Log.e("my_watch", "xxx " + w.Word);
             }
         }, 0);
     }
@@ -174,6 +176,7 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
                     pos = 0;
                 }
                 setupText(pos, getPhienAm(), getColorRandom());
+
             }
         }, 0, getTime() * 1000L);
     }

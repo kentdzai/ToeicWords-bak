@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -21,8 +22,7 @@ import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class TracNghiemActivity extends AppCompatActivity implements View.OnClickListener{
-
+public class TracNghiemActivity extends AppCompatActivity implements View.OnClickListener {
     DatabaseWord db;
     ArrayList<ListWord> arrL, arrL2;
 
@@ -32,7 +32,7 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
     int check;
     int test = 0;
     ProgressBar pbTime;
-    CountDownTimer ct,ct1;
+    CountDownTimer ct, ct1;
     int time;
     Animation shake;
     int point = 0;
@@ -40,7 +40,9 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
     String status[] = {"Tuyệt vời !", "Tốt lắm !", "Cố gắng lên !"};
     String statusPoint = "Cố gắng lên !";
 
-    int icon[] = {R.mipmap.ic_tuyetvoi, R.mipmap.ic_cogang, R.mipmap.ic_dongcam};
+    int icon[] = {R.mipmap.ic_tuyetvoi,
+            R.mipmap.ic_cogang,
+            R.mipmap.ic_dongcam};
 
     int iconStatus = R.mipmap.ic_dongcam;
 
@@ -51,35 +53,77 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_trac_nghiem);
         init();
         arrL = getListWord();
-        question(0);
-
+        setupQuestion(0);
     }
 
-    public void question(int id) {
+    private void init() {
+        setupActionBar();
+        getListWord();
+        btnTL1 = (Button) findViewById(R.id.btnTL1);
+        btnTL2 = (Button) findViewById(R.id.btnTL2);
+        btnTL3 = (Button) findViewById(R.id.btnTL3);
+        btnTL4 = (Button) findViewById(R.id.btnTL4);
 
-        if(test == arrL.size()){
-            if(((double) point/arrL.size()) >= 0.8 && (point/arrL.size()) <= 1){
+        tvChuDe = (TextView) findViewById(R.id.tvChuDe);
+        tvSTTCauHoi = (TextView) findViewById(R.id.tvSTTCauHoi);
+        tvTuVung = (TextView) findViewById(R.id.tvTuVung);
+        tvTime = (TextView) findViewById(R.id.tvTime);
+        pbTime = (ProgressBar) findViewById(R.id.pbTime);
+        shake = AnimationUtils.loadAnimation(this, R.anim.button_animation);
+        pbTime.setMax(30);
+
+        ct = new CountDownTimer(3000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                setupQuestion(1);
+            }
+        };
+
+        ct1 = new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                int progress = (int) (millisUntilFinished / 1000);
+                pbTime.setProgress(progress);
+                tvTime.setText(progress + "s");
+            }
+
+            public void onFinish() {
+                disableButton();
+                onAnswer();
+                ct.start();
+            }
+        };
+        btnTL1.setOnClickListener(this);
+        btnTL2.setOnClickListener(this);
+        btnTL3.setOnClickListener(this);
+        btnTL4.setOnClickListener(this);
+    }
+
+    public void setupQuestion(int id) {
+        if (test == arrL.size()) {
+            if (((double) point / arrL.size()) >= 0.8 && (point / arrL.size()) <= 1) {
                 statusPoint = status[0];
                 iconStatus = icon[0];
-            }else if(((double) point/arrL.size()) >= 0.5 && (point/arrL.size()) < 0.8){
+            } else if (((double) point / arrL.size()) >= 0.5 && (point / arrL.size()) < 0.8) {
                 statusPoint = status[1];
                 iconStatus = icon[1];
-            }else if(((double) point/arrL.size()) < 0.5){
+            } else if (((double) point / arrL.size()) < 0.5) {
                 statusPoint = status[2];
                 iconStatus = icon[2];
             }
             ct1.cancel();
             ct.cancel();
             handleMessage(true);
-        }else {
-
+        } else {
             time = 30;
             ct1.start();
-            setBackground();
+            setButtonOnNextQuestion();
             ArrayList<String> listNghia = new ArrayList<String>();
             int i = 0;
-
-
             if (id == 0) {
                 Random random = new Random();
                 i = random.nextInt(arrL.size());
@@ -128,80 +172,15 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
             listNghia.remove(it3);
             int it4 = rd.nextInt(listNghia.size());
             btnTL4.setText(listNghia.get(it4));
-
             tvSTTCauHoi.setText(test + "/" + arrL.size());
-        }
-
-
-    }
-
-    public void test(Button btn){
-        if(btn.getText().toString().equals(nghia)){
-            btn.startAnimation(shake);
-            btn.setBackgroundResource(R.drawable.cuttom_button_true);
         }
     }
 
     public ArrayList<ListWord> getListWord() {
+        db = new DatabaseWord(getApplicationContext());
         ArrayList<ListWord> list = new ArrayList<ListWord>();
         list = db.queryListWord("SELECT Id, Word, Mean, FavouriteWord FROM Word WHERE FavouriteWord = '" + 1 + "'");
         return list;
-    }
-
-    private void init(){
-        db = new DatabaseWord(getApplicationContext());
-        btnTL1 = (Button) findViewById(R.id.btnTL1);
-        btnTL2 = (Button) findViewById(R.id.btnTL2);
-        btnTL3 = (Button) findViewById(R.id.btnTL3);
-        btnTL4 = (Button) findViewById(R.id.btnTL4);
-        tvChuDe = (TextView) findViewById(R.id.tvChuDe);
-        tvSTTCauHoi = (TextView) findViewById(R.id.tvSTTCauHoi);
-        tvTuVung = (TextView) findViewById(R.id.tvTuVung);
-        tvTime = (TextView) findViewById(R.id.tvTime);
-        pbTime = (ProgressBar) findViewById(R.id.pbTime);
-        shake = AnimationUtils.loadAnimation(this, R.anim.button_animation);
-        pbTime.setMax(30);
-        ct = new CountDownTimer(3000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            public void onFinish() {
-                question(1);
-            }
-        };
-
-        ct1 = new CountDownTimer(30000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-
-                int progress = (int) (millisUntilFinished/1000);
-                pbTime.setProgress(progress);
-                tvTime.setText(progress + "s");
-            }
-
-            public void onFinish() {
-
-                setVisible(btnTL1);
-                setVisible(btnTL2);
-                setVisible(btnTL3);
-                setVisible(btnTL4);
-
-                test(btnTL1);
-                test(btnTL2);
-                test(btnTL3);
-                test(btnTL4);
-
-                ct.start();
-            }
-        };
-        setupActionBar();
-        getListWord();
-        btnTL1.setOnClickListener(this);
-        btnTL2.setOnClickListener(this);
-        btnTL3.setOnClickListener(this);
-        btnTL4.setOnClickListener(this);
     }
 
     public void handleMessage(boolean chuancmnr) {
@@ -224,107 +203,84 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                             test = 0;
                             point = 0;
-                            question(1);
+                            setupQuestion(1);
                             sweetAlertDialog.cancel();
                         }
                     }).show();
         }
     }
 
+    public boolean checkQuestion(Button btn) {
+        if (btn.getText().toString().equals(nghia)) {
+            btn.startAnimation(shake);
+            btn.setEnabled(true);
+            return true;
+        } else {
+            btn.setAlpha(0.5f);
+            return false;
+        }
+    }
+
+    public void checkPoint(Button btn) {
+        if (btn.getText().toString().equals(nghia)) {
+            point++;
+        }
+    }
+
+    public void onAnswer() {
+        checkQuestion(btnTL1);
+        checkQuestion(btnTL2);
+        checkQuestion(btnTL3);
+        checkQuestion(btnTL4);
+    }
+
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.btnTL1:
-
-                if (btnTL1.getText().toString().equals(nghia)) {
-                    btnTL1.startAnimation(shake);
-                    btnTL1.setBackgroundResource(R.drawable.cuttom_button_true);
-                    point++;
-
-                } else {
-                    btnTL1.setBackgroundResource(R.drawable.cuttom_button_false);
-                    test(btnTL2);
-                    test(btnTL3);
-                    test(btnTL4);
-                }
-                setVisible(btnTL1);
-                setVisible(btnTL2);
-                setVisible(btnTL3);
-                setVisible(btnTL4);
+                checkPoint(btnTL1);
+                onAnswer();
+                disableButton();
                 ct.start();
                 break;
             case R.id.btnTL2:
-                if (btnTL2.getText().toString().equals(nghia)) {
-                    btnTL2.startAnimation(shake);
-                    btnTL2.setBackgroundResource(R.drawable.cuttom_button_true);
-                    point++;
-                } else {
-                    btnTL2.setBackgroundResource(R.drawable.cuttom_button_false);
-                    test(btnTL1);
-                    test(btnTL3);
-                    test(btnTL4);
-                }
-                setVisible(btnTL1);
-                setVisible(btnTL2);
-                setVisible(btnTL3);
-                setVisible(btnTL4);
+                checkPoint(btnTL2);
+                onAnswer();
+                disableButton();
                 ct.start();
                 break;
             case R.id.btnTL3:
-                if (btnTL3.getText().toString().equals(nghia)) {
-                    btnTL3.startAnimation(shake);
-                    btnTL3.setBackgroundResource(R.drawable.cuttom_button_true);
-                    point++;
-
-                } else {
-                    btnTL3.setBackgroundResource(R.drawable.cuttom_button_false);
-                    test(btnTL2);
-                    test(btnTL1);
-                    test(btnTL4);
-                }
-                setVisible(btnTL1);
-                setVisible(btnTL2);
-                setVisible(btnTL3);
-                setVisible(btnTL4);
+                checkPoint(btnTL3);
+                onAnswer();
+                disableButton();
                 ct.start();
                 break;
             case R.id.btnTL4:
-                if (btnTL4.getText().toString().equals(nghia)) {
-                    btnTL4.startAnimation(shake);
-                    btnTL4.setBackgroundResource(R.drawable.cuttom_button_true);
-                    point++;
-                } else {
-                    btnTL4.setBackgroundResource(R.drawable.cuttom_button_false);
-                    test(btnTL2);
-                    test(btnTL3);
-                    test(btnTL1);
-                }
-                setVisible(btnTL1);
-                setVisible(btnTL2);
-                setVisible(btnTL3);
-                setVisible(btnTL4);
+                checkPoint(btnTL4);
+                onAnswer();
+                disableButton();
                 ct.start();
                 break;
         }
     }
 
-    public void setBackground(){
-        btnTL1.setBackgroundResource(R.drawable.cuttom_button);
-        btnTL2.setBackgroundResource(R.drawable.cuttom_button);
-        btnTL3.setBackgroundResource(R.drawable.cuttom_button);
-        btnTL4.setBackgroundResource(R.drawable.cuttom_button);
+    public void setButtonOnNextQuestion() {
         btnTL1.setEnabled(true);
         btnTL2.setEnabled(true);
         btnTL3.setEnabled(true);
         btnTL4.setEnabled(true);
-
+        btnTL1.setAlpha(1);
+        btnTL2.setAlpha(1);
+        btnTL3.setAlpha(1);
+        btnTL4.setAlpha(1);
     }
 
-    public void setVisible(Button btn){
-        btn.setEnabled(false);
+    public void disableButton() {
+        btnTL1.setEnabled(false);
+        btnTL2.setEnabled(false);
+        btnTL3.setEnabled(false);
+        btnTL4.setEnabled(false);
     }
-
 
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
@@ -350,5 +306,12 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
         ct.cancel();
         ct1.cancel();
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ct.cancel();
+        ct1.cancel();
     }
 }

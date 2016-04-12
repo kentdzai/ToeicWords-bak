@@ -28,7 +28,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Intent itLockScreenService = new Intent(getApplicationContext(), ServiceTest.class);
-                Intent itReceiver = new Intent("test");
+                Intent itReceiver = new Intent("onAnswer");
                 boolean bl = preference.getSharedPreferences().getBoolean("khoa_man_hinh", false);
                 if (getListWord().size() < 2) {
                     Toast.makeText(getApplicationContext(), "Đánh dấu ít nhất 2 từ để mở chức năng này !", Toast.LENGTH_LONG).show();
