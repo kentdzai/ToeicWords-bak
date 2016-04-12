@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@color/blue_btn_bg_pressed_color"
+            android:background="@color/primary_light"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -23,13 +23,13 @@
                 android:id="@+id/btnnListen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_btn_bg_pressed_color"
+                android:background="@color/primary_light"
                 android:src="@mipmap/ic_speak" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nhấn nút để nghe lại" />
+                android:text="Nhấn để nghe lại" />
         </LinearLayout>
 
         <LinearLayout
@@ -38,7 +38,6 @@
             android:layout_marginTop="15dp"
             android:orientation="vertical"
             android:padding="10dp">
-
 
             <Button
                 android:id="@+id/btnnAns1"

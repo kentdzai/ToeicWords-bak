@@ -20,7 +20,7 @@
         android:id="@+id/tvnWord"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/blue_btn_bg_pressed_color"
+        android:background="@color/primary_light"
         android:gravity="center"
         android:text="Resolve"
         android:textSize="25sp"
