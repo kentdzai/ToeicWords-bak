@@ -14,7 +14,7 @@
         <item name="android:layout_gravity">left|center_vertical</item>
     </style>
 
-    <style name="btnLuyenTap" parent="Theme.AppCompat.Light">
+    <style name="btnLuyenTap1" parent="Theme.AppCompat.Light">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_gravity">center_vertical</item>
@@ -22,7 +22,7 @@
             @color/primary_dark
         </item>
         <item name="android:colorControlHighlight" tools:targetApi="lollipop">
-            @color/accent
+            @color/primary_light
         </item>
         <item name="android:radius">10dp</item>
         <item name="android:textStyle">normal</item>

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -385,6 +386,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(internetReceiver);
+        Log.e("my_watch", "ondestroy main");
     }
 
     class AdapterMain extends ArrayAdapter<NavigationMain> {

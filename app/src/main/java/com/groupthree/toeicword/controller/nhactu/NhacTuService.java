@@ -72,6 +72,11 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
                 stopService(intent);
                 pref.edit().putBoolean("nhac_tu", false).commit();
             }
+        } else {
+            getWord();
+            uiHandler = new Handler(getMainLooper());
+            init();
+            pref.edit().putBoolean("nhac_tu", true).commit();
         }
         return START_STICKY;
     }
@@ -206,6 +211,6 @@ public class NhacTuService extends Service implements SharedPreferences.OnShared
         if (notificationManager != null) {
             notificationManager.cancel(6969);
         }
-
+        Log.e("my_watch", "ondestroy service");
     }
 }
