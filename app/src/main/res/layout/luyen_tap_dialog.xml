@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#303f9f"
+        android:background="#E64A19"
         android:padding="13dp"
         android:text="Chọn hình thức luyện tập"
         android:textColor="#fff"

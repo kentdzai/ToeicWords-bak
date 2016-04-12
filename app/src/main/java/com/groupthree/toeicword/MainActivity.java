@@ -31,7 +31,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.groupthree.toeicword.R;
 import com.groupthree.toeicword.controller.InternetReceiver;
 import com.groupthree.toeicword.controller.khoamanhinh.LockScreenService;
 import com.groupthree.toeicword.controller.khoamanhinh.ServiceTest;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
         init();
-        itReceiver = new Intent("test");
+        itReceiver = new Intent("onAnswer");
         itLockScreenService = new Intent(getApplicationContext(), ServiceTest.class);
         if (getListWord().size() < 2) {
             arrN.set(2, new NavigationMain(Image[2], "Bật khóa màn hình"));
@@ -264,8 +263,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        setTypeNhacTu(1);
-        setTypeKhoaManHinh(1);
+        if (key.equals("nhac_tu")) {
+            setTypeNhacTu(1);
+        }
+        if (key.equals("khoa_man_hinh")) {
+            setTypeKhoaManHinh(1);
+        }
     }
 
     public void setupCheckNetwork() {

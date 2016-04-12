@@ -21,6 +21,7 @@ import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.Word;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Locale;
 
 public class LuyenNoiActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,6 +43,7 @@ public class LuyenNoiActivity extends AppCompatActivity implements View.OnClickL
 
     private void init() {
         setupActionBar();
+        getWord();
         rootLuyenNoi = (LinearLayout) findViewById(R.id.rootLuyenNoi);
         tvnType = (TextView) findViewById(R.id.tvnType);
         tvnWord = (TextView) findViewById(R.id.tvnWord);
@@ -59,7 +61,7 @@ public class LuyenNoiActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void setupWord(int pos) {
-        w = getWord().get(pos);
+        w = arrW.get(pos);
         tvnMean.setText(w.Mean);
         tvnPhonetic.setText(w.Phonetic);
         tvnType.setText(new StringBuilder().append("(").append(w.Type).append(")"));
@@ -76,6 +78,7 @@ public class LuyenNoiActivity extends AppCompatActivity implements View.OnClickL
     public ArrayList<Word> getWord() {
         db = new DatabaseWord(getApplicationContext());
         arrW = db.queryWordWithFavorite();
+        Collections.shuffle(arrW);
         return arrW;
     }
 
