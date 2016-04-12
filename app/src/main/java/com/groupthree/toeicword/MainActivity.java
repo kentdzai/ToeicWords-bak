@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -43,6 +44,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, SharedPreferences.OnSharedPreferenceChangeListener {
     ListView lvMain;
+    ArrayList<String> list;
+    ArrayAdapter<String> adapterS;
     ArrayList<NavigationMain> arrN;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -244,6 +247,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return arrL;
     }
 
+    public ArrayList<String> listWord2(){
+               list = new ArrayList<>();
+                db = new DatabaseWord(getApplicationContext());
+               list = db.queryListWord2("SELECT Word FROM Word");
+                return list;
+           }
+
+
     public AlertDialog.Builder thongBao() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle("Học từ đã đánh dấu");
@@ -293,7 +304,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         getMenuInflater().inflate(R.menu.menumain, menu);
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
+        final SearchView searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
@@ -306,6 +317,39 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                LinearLayout linearLayout1 = (LinearLayout) searchView.getChildAt(0);
+                LinearLayout linearLayout2 = (LinearLayout) linearLayout1.getChildAt(2);
+                LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
+                final AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
+                listWord2();
+                adapterS = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, list);
+                autoComplete.setAdapter(adapterS);
+                autoComplete.setDropDownBackgroundResource(android.R.color.background_light);
+//                autoComplete.setTextColor(Color.RED);
+//                autoComplete.setHintTextColor(Color.BLACK);
+//                autoComplete
+
+
+
+                autoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                        db = new DatabaseWord(getApplicationContext());
+                        int result = db.queryIdWithWord(tv.getText().toString());
+                        if (result != -1) {
+                            Intent it = new Intent(MainActivity.this, DetailsWord.class);
+                            it.putExtra("from", "MAIN");
+                            it.putExtra("Id", result);
+
+
+//                            Toast.makeText(MainActivity.this, ""+result, Toast.LENGTH_SHORT).show();
+                            startActivity(it);
+                        }
+                    }
+                });
                 return true;
             }
         });
