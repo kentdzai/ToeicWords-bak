@@ -97,7 +97,6 @@ public class NhacTuService extends Service
         tvPhonetic = (TextView) view.findViewById(R.id.tvPhonetic);
         tvSortMean = (TextView) view.findViewById(R.id.tvSortMean);
         if (timer == null) {
-            lnNhacTu.setVisibility(LinearLayout.INVISIBLE);
             setupLoop();
         }
         setupNotification();
@@ -150,7 +149,7 @@ public class NhacTuService extends Service
     public void setupText(final int position,
                           final boolean get_phien_am,
                           final boolean get_color_random) {
-        uiHandler.postDelayed(new Runnable() {
+        uiHandler.post(new Runnable() {
             @Override
             public void run() {
                 arrColor = getResources().getIntArray(R.array.arrColor);
@@ -166,7 +165,6 @@ public class NhacTuService extends Service
                 } else {
                     color = getColor();
                 }
-                lnNhacTu.setVisibility(LinearLayout.VISIBLE);
                 tvWord.setText(w.Word);
                 tvPhonetic.setText(phien_am);
                 tvSortMean.setText(w.SortMean);
@@ -174,7 +172,7 @@ public class NhacTuService extends Service
                 builder.setContentTitle(w.Word);
                 notificationManager.notify(6969, builder.build());
             }
-        }, 0);
+        });
     }
 
     public void setupLoop() {
@@ -200,7 +198,7 @@ public class NhacTuService extends Service
                 || key.equals(ToeicWordPreferences.phien_am_nhac_tu)
                 || key.equals(ToeicWordPreferences.color_nhac_tu)) {
             timer.cancel();
-            new Handler().postDelayed(new Runnable() {
+            new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
                     setupLoop();
