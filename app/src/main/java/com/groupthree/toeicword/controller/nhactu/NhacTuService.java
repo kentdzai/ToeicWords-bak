@@ -135,17 +135,6 @@ public class NhacTuService extends Service
         return Color.parseColor(pref.getString(ToeicWordPreferences.list_color, "#FF5722"));
     }
 
-    private void setupView() {
-        if (view == null) {
-            windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-            view = View.inflate(getBaseContext(), R.layout.layout_nhactu, null);
-            parmW = new WindowParams();
-            windowManager.addView(view, parmW);
-            view.setOnTouchListener(new Touch(view, windowManager,
-                    parmW, pos));
-        }
-    }
-
     public void setupText(final int position,
                           final boolean get_phien_am,
                           final boolean get_color_random) {
@@ -194,13 +183,16 @@ public class NhacTuService extends Service
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(ToeicWordPreferences.time_nhac_tu)
-                || key.equals(ToeicWordPreferences.phien_am_nhac_tu)
+        if (key.equals(ToeicWordPreferences.phien_am_nhac_tu)
                 || key.equals(ToeicWordPreferences.color_nhac_tu)) {
             timer.cancel();
+            setupLoop();
+        }
+        if (key.equals(ToeicWordPreferences.time_nhac_tu)) {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
+                    timer.cancel();
                     setupLoop();
                 }
             }, getTime() * 1000);
@@ -221,4 +213,15 @@ public class NhacTuService extends Service
             notificationManager.cancel(6969);
         }
     }
+
+    private void setupView() {
+        if (view == null) {
+            windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+            view = View.inflate(getBaseContext(), R.layout.layout_nhactu, null);
+            parmW = new WindowParams();
+            windowManager.addView(view, parmW);
+            view.setOnTouchListener(new Touch(view, windowManager, parmW));
+        }
+    }
+
 }

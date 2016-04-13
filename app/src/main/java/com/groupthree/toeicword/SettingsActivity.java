@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 boolean bl = preference.getSharedPreferences().getBoolean(ToeicWordPreferences.nhac_tu, false);
                 if (bl) {
                     itNhacTu.putExtra(ToeicWordPreferences.nhac_tu, true);
+                    preference.getSharedPreferences().edit().putInt(ToeicWordPreferences.pos_nhac_tu, 0).commit();
                     startService(itNhacTu);
                 } else {
                     stopService(itNhacTu);

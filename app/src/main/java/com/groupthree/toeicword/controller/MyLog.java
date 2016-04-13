@@ -7,7 +7,7 @@ import android.util.Log;
  */
 public class MyLog {
 
-    public static void a(String msg) {
+    public static void e(String msg) {
         Log.e("my_watch", msg);
     }
 }
