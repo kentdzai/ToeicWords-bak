@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:id="@+id/rlLock"
-    android:background="@drawable/images"
+    android:background="@drawable/bluebackround"
     tools:context=".LockSreenActivity">
 
     <LinearLayout

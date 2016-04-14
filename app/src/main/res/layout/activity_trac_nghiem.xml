@@ -66,7 +66,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#fff"
+            android:background="@color/primary_light"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
             android:orientation="vertical">
 
             <TextView
@@ -95,37 +97,45 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnTL1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Trả lời 1"
-            android:theme="@style/btnLuyenTap" />
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
 
-        <Button
-            android:id="@+id/btnTL2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Trả lời 2"
-            android:theme="@style/btnLuyenTap" />
+            <Button
+                android:id="@+id/btnTL1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Trả lời 1"
+                android:theme="@style/btnLuyenTap" />
 
-        <Button
-            android:id="@+id/btnTL3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Trả lời 3"
-            android:theme="@style/btnLuyenTap" />
+            <Button
+                android:id="@+id/btnTL2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Trả lời 2"
+                android:theme="@style/btnLuyenTap" />
 
-        <Button
-            android:id="@+id/btnTL4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="Trả lời 4"
-            android:theme="@style/btnLuyenTap" />
+            <Button
+                android:id="@+id/btnTL3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Trả lời 3"
+                android:theme="@style/btnLuyenTap" />
+
+            <Button
+                android:id="@+id/btnTL4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Trả lời 4"
+                android:theme="@style/btnLuyenTap" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

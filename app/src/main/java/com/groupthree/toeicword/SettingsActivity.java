@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.groupthree.toeicword.model.ToeicWordPreferences;
-import com.groupthree.toeicword.controller.khoamanhinh.ServiceTest;
+import com.groupthree.toeicword.controller.khoamanhinh.ServiceLockScreen;
 import com.groupthree.toeicword.controller.nhactu.NhacTuService;
 import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.ListWord;
@@ -26,8 +26,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         kmh.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
-                Intent itLockScreenService = new Intent(getApplicationContext(), ServiceTest.class);
-                Intent itReceiver = new Intent("onAnswer");
+                Intent itLockScreenService = new Intent(getApplicationContext(), ServiceLockScreen.class);
                 boolean bl = preference.getSharedPreferences().getBoolean(ToeicWordPreferences.khoa_man_hinh, false);
                 if (getListWord().size() < 2) {
                     Toast.makeText(getApplicationContext(), "Đánh dấu ít nhất 2 từ để mở chức năng này !", Toast.LENGTH_LONG).show();
@@ -37,7 +36,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         stopService(itLockScreenService);
                     } else {
                         startService(itLockScreenService);
-                        sendBroadcast(itReceiver);
                     }
                 }
                 return true;

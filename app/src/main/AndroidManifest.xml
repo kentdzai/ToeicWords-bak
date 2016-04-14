@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.PHONE_STATE_STATE" />
 
     <application
@@ -23,6 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
         <activity android:name="com.groupthree.toeicword.MainActivity">
             <meta-data
                 android:name="android.app.searchable"
@@ -34,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.groupthree.toeicword.ListSubjectActivity"
             android:label="Mời chọn chủ đề"
@@ -63,14 +64,14 @@
             android:name="com.groupthree.toeicword.HocTuActivity"
             android:label="Học Từ" />
 
-        <receiver android:name="com.groupthree.toeicword.controller.khoamanhinh.LockScreenReceiver">
+        <receiver android:name=".controller.khoamanhinh.LockScreenReceiver">
             <intent-filter>
-                <action android:name="test" />
+                <action android:name="test"></action>
             </intent-filter>
         </receiver>
 
         <service android:name="com.groupthree.toeicword.controller.khoamanhinh.LockScreenService" />
-        <service android:name="com.groupthree.toeicword.controller.khoamanhinh.ServiceTest"/>
+        <service android:name=".controller.khoamanhinh.ServiceLockScreen"/>
 
         <activity
             android:name="com.groupthree.toeicword.FacebookActivity"
@@ -103,7 +104,7 @@
             android:label="Luyện Nói"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.groupthree.toeicword.controller.luyentap.LattuActivity"
+            android:name=".controller.luyentap.LatTuActivity"
             android:label="Lật Từ"
             android:screenOrientation="portrait" />
         <activity

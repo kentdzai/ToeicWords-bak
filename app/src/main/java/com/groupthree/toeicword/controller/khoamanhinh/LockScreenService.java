@@ -47,11 +47,10 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
     DigitalClock digital;
     int year_x, month_x, day_x;
     int check;
-    int test = 0;
-    int abc = 0;
-    Animation shake;
-    Intent it;
-
+    int count = 0;
+    int key = 0;
+    Animation animation;
+    Intent it, it1;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -61,20 +60,26 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         it = intent;
+        it1 = new Intent("test");
+
 
         if(getListWord().size() >= 2) {
 
             try {
-                abc = intent.getIntExtra("id", 0);
+                key = intent.getIntExtra("id", 0);
+
             } catch (Exception e) {
 
             }
-            if (abc == 0) {
+            if (key == 0) {
+                stopService(it);
 
             } else {
                 init();
                 question(0);
                 setupTime();
+                it1.putExtra("id2", 2);
+                sendBroadcast(it1);
             }
 
         }else{
@@ -117,7 +122,7 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
     public void init() {
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         pref.registerOnSharedPreferenceChangeListener(this);
-        shake = AnimationUtils.loadAnimation(this, R.anim.button_animation);
+        animation = AnimationUtils.loadAnimation(this, R.anim.button_animation);
         ct = new CountDownTimer(2000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -211,14 +216,14 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
         ArrayList<String> listNghia = new ArrayList<String>();
         setBackground();
         int i = 0;
-        if(test == arrL.size()){
-            test =0;
+        if(count == arrL.size()){
+            count =0;
         }
         if(id == 0){
             Random random = new Random();
             i = random.nextInt(arrL.size());
             check = i;
-            test++;
+            count++;
         }else{
             if(check >= 0 && check < (arrL.size() - 1)){
                 i = check + 1;
@@ -227,7 +232,7 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
                 i = 0;
                 check = i;
             }
-            test++;
+            count++;
         }
         Random rd = new Random();
         int i2 = rd.nextInt(arrL.size());
@@ -264,7 +269,7 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
 
     public void test(Button btn){
         if(btn.getText().toString().equals(nghia)){
-            btn.startAnimation(shake);
+            btn.startAnimation(animation);
             btn.setBackgroundResource(R.drawable.cuttom_button_true);
         }
     }
@@ -277,7 +282,7 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
                     dettachLockScreenView();
                     stopService(it);
                     ct.cancel();
-                    btnAns1.startAnimation(shake);
+                    btnAns1.startAnimation(animation);
                     btnAns1.setBackgroundResource(R.drawable.cuttom_button_true);
                 } else {
                     btnAns1.setBackgroundResource(R.drawable.cuttom_button_false);
@@ -294,7 +299,7 @@ public class LockScreenService extends Service implements SharedPreferences.OnSh
                     dettachLockScreenView();
                     stopService(it);
                     ct.cancel();
-                    btnAns2.startAnimation(shake);
+                    btnAns2.startAnimation(animation);
                     btnAns2.setBackgroundResource(R.drawable.cuttom_button_true);
                 } else {
                     btnAns2.setBackgroundResource(R.drawable.cuttom_button_false);

@@ -15,8 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.groupthree.toeicword.R;
-import com.groupthree.toeicword.controller.luyentap.LattuActivity;
+import com.groupthree.toeicword.controller.luyentap.LatTuActivity;
 import com.groupthree.toeicword.controller.luyentap.LuyenNgheActivity;
 import com.groupthree.toeicword.controller.luyentap.LuyenNoiActivity;
 import com.groupthree.toeicword.controller.luyentap.NgheLapActivity;
@@ -72,7 +71,7 @@ public class LuyenTapDialog extends Dialog implements AdapterView.OnItemClickLis
                 handleStartActivity(NgheLapActivity.class);
                 break;
             case 1:
-                handleStartActivity(LattuActivity.class);
+                handleStartActivity(LatTuActivity.class);
                 break;
             case 2:
                 handleStartActivity(TracNghiemActivity.class);

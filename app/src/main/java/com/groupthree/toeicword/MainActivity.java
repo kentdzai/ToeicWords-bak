@@ -14,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,7 +34,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.groupthree.toeicword.controller.InternetReceiver;
 import com.groupthree.toeicword.controller.khoamanhinh.LockScreenService;
-import com.groupthree.toeicword.controller.khoamanhinh.ServiceTest;
+import com.groupthree.toeicword.controller.khoamanhinh.ServiceLockScreen;
 import com.groupthree.toeicword.controller.nhactu.NhacTuService;
 import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.ListWord;
@@ -50,9 +49,9 @@ public class MainActivity extends AppCompatActivity
 
     ArrayAdapter<String> adapterSearch;
     ArrayList<String> arrSearch;
-
+    SearchView searchView;
+    String text;
     int pos;
-
     ListView lvMain;
     ArrayList<NavigationMain> arrN;
 
@@ -86,7 +85,6 @@ public class MainActivity extends AppCompatActivity
     LinearLayout rootMain;
     DatabaseWord db;
     ArrayList<ListWord> arrL;
-    Intent itReceiver;
     Intent itLockScreenService;
     String query;
 
@@ -98,8 +96,7 @@ public class MainActivity extends AppCompatActivity
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
         init();
-        itReceiver = new Intent("onAnswer");
-        itLockScreenService = new Intent(getApplicationContext(), ServiceTest.class);
+        itLockScreenService = new Intent(getApplicationContext(), ServiceLockScreen.class);
         if (getListWord().size() < 2) {
             arrN.set(2, new NavigationMain(Image[2], "Bật khóa màn hình"));
             editor.putBoolean(ToeicWordPreferences.khoa_man_hinh, false);
@@ -108,6 +105,8 @@ public class MainActivity extends AppCompatActivity
         editor.commit();
         handleIntent(getIntent());
     }
+
+
 
     public void init() {
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -218,7 +217,6 @@ public class MainActivity extends AppCompatActivity
                     if (kmh.equals(btnKhoaManHinh[0])) {
                         tvKhoaManHinh.setText(btnKhoaManHinh[1]);
                         startService(itLockScreenService);
-                        sendBroadcast(itReceiver);
                         editor.putBoolean(ToeicWordPreferences.khoa_man_hinh, true);
                     }
                     if (kmh.equals(btnKhoaManHinh[1])) {
@@ -322,7 +320,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menumain, menu);
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final SearchView searchView =
+        searchView =
                 (SearchView) menu.findItem(R.id.search).getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getComponentName()));
@@ -330,6 +328,7 @@ public class MainActivity extends AppCompatActivity
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
@@ -340,7 +339,7 @@ public class MainActivity extends AppCompatActivity
                 LinearLayout linearLayout3 = (LinearLayout) linearLayout2.getChildAt(1);
                 final AutoCompleteTextView autoComplete = (AutoCompleteTextView) linearLayout3.getChildAt(0);
                 listWord2();
-                adapterSearch = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_list_item_1, arrSearch);
+                adapterSearch = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_dropdown_item_1line, arrSearch);
                 autoComplete.setAdapter(adapterSearch);
                 autoComplete.setDropDownBackgroundResource(android.R.color.background_light);
 
@@ -348,8 +347,9 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                        text = tv.getText().toString();
                         db = new DatabaseWord(getApplicationContext());
-                        int result = db.queryIdWithWord(tv.getText().toString());
+                        int result = db.queryIdWithWord(text);
                         if (result != -1) {
                             Intent it = new Intent(MainActivity.this, DetailsWord.class);
                             it.putExtra("from", "MAIN");
@@ -358,6 +358,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 });
+
                 return true;
             }
         });
@@ -374,6 +375,7 @@ public class MainActivity extends AppCompatActivity
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY).trim();
+
             db = new DatabaseWord(getApplicationContext());
             int result = db.queryIdWithWord(query);
             if (result != -1) {

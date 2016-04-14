@@ -13,7 +13,8 @@ import android.preference.PreferenceManager;
 /**
  * Created by QuyetChu on 4/7/16.
  */
-public class ServiceTest extends Service implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class ServiceLockScreen extends Service implements SharedPreferences.OnSharedPreferenceChangeListener{
+
     BroadcastReceiver receiver;
     private Context mContext = null;
     SharedPreferences pref;
@@ -25,16 +26,12 @@ public class ServiceTest extends Service implements SharedPreferences.OnSharedPr
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
-        Intent intent1 = new Intent("test");
-        sendBroadcast(intent1);
-
         receiver = new LockScreenReceiver();
-
         pref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         pref.registerOnSharedPreferenceChangeListener(this);
         stateRecever(true);
         setLockGuard();
+
         return START_STICKY;
     }
 
@@ -42,7 +39,6 @@ public class ServiceTest extends Service implements SharedPreferences.OnSharedPr
         if (isStartRecever) {
             IntentFilter filter = new IntentFilter();
             filter.addAction(Intent.ACTION_SCREEN_OFF);
-            filter.addAction(Intent.ACTION_BOOT_COMPLETED);
             registerReceiver(receiver, filter);
         } else {
             if (null != receiver) {
