@@ -185,9 +185,20 @@ public class DatabaseWord extends SQLiteOpenHelper {
         return arrW;
     }
 
+    public Word queryWordWithText(String text) {
+        db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + TBL_WORD + " WHERE " + Word + " = '" + text + "'", null);
+        c.moveToFirst();
+        return new Word(c.getInt(0), c.getString(1), c.getString(2), c
+                .getString(3), c.getString(4), c.getString(5), c
+                .getString(6), c.getString(7), c.getString(8), c
+                .getString(9), c.getString(10), c.getString(11), c.getInt(12), c
+                .getString(13), c.getString(14), c.getInt(15));
+    }
+
+
     public int queryIdWithWord(String word) {
         db = getReadableDatabase();
-//        Cursor c = db.rawQuery("SELECT id FROM " + TBL_WORD + " WHERE " + Word + " % '" + word + "'", null);
         Cursor c = db.query(true, TBL_WORD, new String[]{id}, Word + " LIKE ?",
                 new String[]{word + "%"}, null, null, null, null);
         if (!c.moveToFirst()) {

@@ -2,6 +2,7 @@ package com.groupthree.toeicword.controller.luyentap;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.groupthree.toeicword.R;
@@ -25,7 +27,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class TracNghiemActivity extends AppCompatActivity implements View.OnClickListener {
     DatabaseWord db;
     ArrayList<ListWord> arrL, arrL2;
-
+    ScrollView rootTracNghiem;
     Button btnTL1, btnTL2, btnTL3, btnTL4;
     TextView tvSTTCauHoi, tvChuDe, tvTuVung, tvTime;
     String nghia;
@@ -63,7 +65,7 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
         btnTL2 = (Button) findViewById(R.id.btnTL2);
         btnTL3 = (Button) findViewById(R.id.btnTL3);
         btnTL4 = (Button) findViewById(R.id.btnTL4);
-
+        rootTracNghiem = (ScrollView) findViewById(R.id.rootTracNghiem);
         tvChuDe = (TextView) findViewById(R.id.tvChuDe);
         tvSTTCauHoi = (TextView) findViewById(R.id.tvSTTCauHoi);
         tvTuVung = (TextView) findViewById(R.id.tvTuVung);
@@ -223,6 +225,7 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
 
     public void checkPoint(Button btn) {
         if (btn.getText().toString().equals(nghia)) {
+            thongBao("Chính xác!");
             point++;
         }
     }
@@ -287,6 +290,10 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    public void thongBao(String msg) {
+        Snackbar.make(rootTracNghiem, msg, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override

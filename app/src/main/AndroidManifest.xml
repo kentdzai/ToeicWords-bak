@@ -104,7 +104,7 @@
             android:label="Luyện Nói"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".controller.luyentap.LatTuActivity"
+            android:name=".controller.luyentap.LattuActivity"
             android:label="Lật Từ"
             android:screenOrientation="portrait" />
         <activity

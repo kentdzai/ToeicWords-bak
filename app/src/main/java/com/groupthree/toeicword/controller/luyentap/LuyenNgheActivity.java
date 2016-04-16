@@ -25,7 +25,7 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
     Button btnnAns1, btnnAns2, btnnAns3, btnnAns4, btnnNext;
     ImageButton btnnListen;
     DatabaseWord db;
-    ArrayList<Word> arrW, arrW2;
+    ArrayList<Word> arrW, arrW1, arrW2;
     Word w;
     int pos = 0;
     int count = 0;
@@ -47,6 +47,7 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
         btnnListen = (ImageButton) findViewById(R.id.btnnListen);
         rootLuyenNghe = (ScrollView) findViewById(R.id.rootLuyenNghe);
         setupWord(0);
+
         btnnNext.setOnClickListener(this);
         btnnAns1.setOnClickListener(this);
         btnnAns2.setOnClickListener(this);
@@ -60,33 +61,39 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
         btn.setAlpha(1);
     }
 
+    int arrR[];
+
     public void setupWord(int pos) {
         defaultButton(btnnAns1);
         defaultButton(btnnAns2);
         defaultButton(btnnAns3);
         defaultButton(btnnAns4);
+        arrW1 = new ArrayList<>();
         ArrayList<String> arrS = new ArrayList<>();
         arrW2 = getWord();
         w = arrW.get(pos);
         Random rd = new Random();
 
         arrS.add(w.Word);
+        arrW1.add(w);
         arrW2.remove(w);
 
         int i2 = rd.nextInt(arrW.size() - 1);
+        arrW1.add(arrW2.get(i2));
         arrS.add(arrW2.get(i2).Word);
         arrW2.remove(i2);
 
         int i3 = rd.nextInt(arrW.size() - 1);
+        arrW1.add(arrW2.get(i3));
         arrS.add(arrW2.get(i3).Word);
         arrW2.remove(i3);
 
         int i4 = rd.nextInt(arrW.size());
+        arrW1.add(arrW2.get(i4));
         arrS.add(arrW2.get(i4).Word);
         arrW2.remove(i4);
 
-        int arrR[] = {0, 1, 2, 3};
-        daoViTri(arrR);
+        arrR = daoViTri(new int[]{0, 1, 2, 3});
 
         btnnAns1.setText(arrS.get(arrR[0]));
         btnnAns2.setText(arrS.get(arrR[1]));
@@ -96,7 +103,7 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                playMp3();
+                getMp3(w);
             }
         }, 150);
     }
@@ -109,7 +116,7 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
         return arrW;
     }
 
-    public void daoViTri(int arrR[]) {
+    public int[] daoViTri(int arrR[]) {
         Random r = new Random();
         for (int j = arrR.length - 1; j > 0; j--) {
             int q = r.nextInt(j + 1);
@@ -117,18 +124,75 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
             arrR[q] = arrR[j];
             arrR[j] = k;
         }
+        return arrR;
     }
+
 
     public void checkAnswer(Button btn) {
         String text = btn.getText().toString();
         if (text.equals(w.Word)) {
             count = 0;
+            Word result = db.queryWordWithText(text);
+            btn.setText(new StringBuilder()
+                    .append(result.Word)
+                    .append(" - ")
+                    .append(result.Phonetic));
             thongBao("Chính xác!");
-            doNext();
+            setFalse();
+            btn.setAlpha(1);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doNext();
+                }
+            }, 3000);
         } else {
             count++;
             btn.setEnabled(false);
             btn.setAlpha(0.5f);
+            if (text.equals(textCompare(btnnAns1))) {
+                btnnAns1.setText(setWordAndPhoneticWithFalse(0));
+            }
+            if (text.equals(textCompare(btnnAns2))) {
+                btnnAns2.setText(setWordAndPhoneticWithFalse(1));
+            }
+            if (text.equals(textCompare(btnnAns3))) {
+                btnnAns3.setText(setWordAndPhoneticWithFalse(2));
+            }
+            if (text.equals(textCompare(btnnAns4))) {
+                btnnAns4.setText(setWordAndPhoneticWithFalse(3));
+            }
+        }
+    }
+
+    public String textCompare(Button btn) {
+        return btn.getText().toString();
+    }
+
+    public void setFalse() {
+        checkFalse(btnnAns1);
+        checkFalse(btnnAns2);
+        checkFalse(btnnAns3);
+        checkFalse(btnnAns4);
+        btnnAns1.setText(setWordAndPhoneticWithFalse(0));
+        btnnAns2.setText(setWordAndPhoneticWithFalse(1));
+        btnnAns3.setText(setWordAndPhoneticWithFalse(2));
+        btnnAns4.setText(setWordAndPhoneticWithFalse(3));
+    }
+
+    public String setWordAndPhoneticWithFalse(int pos) {
+        return new StringBuilder()
+                .append(arrW1.get(arrR[pos]).Word)
+                .append(" - ")
+                .append(arrW1.get(arrR[pos]).Phonetic).toString();
+    }
+
+    public boolean checkFalse(Button btn) {
+        if (btn.getText().toString().equals(w.Word)) {
+            return true;
+        } else {
+            btn.setAlpha(0.5f);
+            return false;
         }
     }
 
@@ -145,7 +209,7 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
         Snackbar.make(rootLuyenNghe, msg, Snackbar.LENGTH_LONG).show();
     }
 
-    public MediaPlayer playMp3() {
+    public MediaPlayer getMp3(Word w) {
         return OpenMp3.a(getApplicationContext()).playMp3(w.id);
     }
 
@@ -153,7 +217,7 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnnListen:
-                playMp3();
+                getMp3(w);
                 break;
             case R.id.btnnAns1:
                 checkAnswer(btnnAns1);
