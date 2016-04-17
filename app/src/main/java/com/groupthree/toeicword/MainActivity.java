@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -41,6 +42,8 @@ import com.groupthree.toeicword.model.ListWord;
 import com.groupthree.toeicword.model.ToeicWordPreferences;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class MainActivity extends AppCompatActivity
@@ -68,7 +71,8 @@ public class MainActivity extends AppCompatActivity
             "Bật nhắc từ",
             "Cài đặt",
             "Chia sẻ",
-            "Hướng dẫn"};
+            "Hướng dẫn",
+            "Thông tin ứng dụng"};
 
     final int Image[] = {
             R.mipmap.ic_hoctuvungtheochude,
@@ -77,7 +81,9 @@ public class MainActivity extends AppCompatActivity
             R.mipmap.ic_nhactu,
             R.mipmap.ic_setting,
             R.mipmap.ic_facebook,
-            R.mipmap.ic_huongdan};
+            R.mipmap.ic_huongdan,
+            R.mipmap.ic_info
+    };
 
     CallbackManager callbackManager;
     ShareDialog shareDialog;
@@ -105,7 +111,6 @@ public class MainActivity extends AppCompatActivity
         editor.commit();
         handleIntent(getIntent());
     }
-
 
 
     public void init() {
@@ -255,7 +260,18 @@ public class MainActivity extends AppCompatActivity
                 handleStartActivity(HelpActivity.class);
                 finish();
                 break;
+            case 7:
+                showInfo();
+                break;
         }
+    }
+
+    public void showInfo() {
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MainActivity.this);
+        sweetAlertDialog.setTitleText("Học Từ Vựng Tiếng Anh");
+        sweetAlertDialog.setContentText("Ứng dụng được phát triển bởi nhóm 3" +
+                "\nLớp: PT11151-MOB.");
+        sweetAlertDialog.show();
     }
 
     public ArrayList<ListWord> getListWord() {

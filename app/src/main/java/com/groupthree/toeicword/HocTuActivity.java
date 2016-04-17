@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import com.groupthree.toeicword.model.ListWord;
 import com.groupthree.toeicword.view.AdapterListWordWithListView;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class HocTuActivity extends AppCompatActivity implements View.OnClickListener {
     ListView lvHocTu;
@@ -51,24 +54,55 @@ public class HocTuActivity extends AppCompatActivity implements View.OnClickList
         return adapter;
     }
 
-    public AlertDialog.Builder thongBao() {
+    public AlertDialog.Builder thongBao1() {
         AlertDialog.Builder builder = new AlertDialog.Builder(HocTuActivity.this);
         builder.setTitle("Bạn cần có ít nhất 4 từ đánh dấu !");
         builder.setMessage("Bạn có muốn thêm từ để học");
         builder.setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(HocTuActivity.this, ListSubjectActivity.class));
-                finish();
+
             }
         });
         builder.setPositiveButton("Hủy", null);
         return builder;
     }
 
+    public void thongBao() {
+        SweetAlertDialog dialog = new SweetAlertDialog(HocTuActivity.this);
+        dialog.setTitleText("Bạn có muốn thêm từ để học");
+        dialog.setContentText("Bạn cần có ít nhất 4 từ đánh dấu !");
+        dialog.setConfirmText("Đồng ý");
+        dialog.show();
+        dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                Intent it = new Intent(HocTuActivity.this, ListSubjectActivity.class);
+                startActivity(it);
+                finish();
+            }
+        });
+        dialog.setCancelText("Hủy");
+        dialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                startActivity(new Intent(HocTuActivity.this, MainActivity.class));
+                overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
+                finish();
+            }
+        });
+
+    }
+
     public void checkNull() {
         if (getListWord().size() == 0) {
-            thongBao().show();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    thongBao();
+                }
+            }, 300);
+
         } else {
             lvHocTu.setAdapter(showListWord());
         }
@@ -104,9 +138,9 @@ public class HocTuActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnHocTu:
-                if(getListWord().size() < 4) {
-                    thongBao().show();
-                }else {
+                if (getListWord().size() < 4) {
+                    thongBao();
+                } else {
                     LuyenTapDialog cdd = new LuyenTapDialog(HocTuActivity.this);
                     cdd.show();
                 }

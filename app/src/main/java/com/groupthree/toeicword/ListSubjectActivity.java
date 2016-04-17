@@ -98,7 +98,7 @@ public class ListSubjectActivity extends AppCompatActivity implements AdapterVie
             Subject s = arrS.get(position);
             tvSubject.setText(s.Subject);
             tvSubjectMean.setText(s.SubjectMean);
-            tvCount.setText("("+s.countFavouriteWord+")");
+            tvCount.setText("(" + s.countFavouriteWord + ")");
             return v;
         }
     }
