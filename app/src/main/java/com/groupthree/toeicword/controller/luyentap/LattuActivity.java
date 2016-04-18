@@ -179,6 +179,7 @@ public class LattuActivity extends AppCompatActivity implements
             case android.R.id.home:
                 ct.cancel();
                 finish();
+                overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -188,5 +189,8 @@ public class LattuActivity extends AppCompatActivity implements
         super.onBackPressed();
         ct.cancel();
         finish();
+        overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
     }
+
+
 }

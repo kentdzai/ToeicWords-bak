@@ -91,6 +91,7 @@ public class LuyenNoiActivity extends AppCompatActivity implements View.OnClickL
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -99,6 +100,7 @@ public class LuyenNoiActivity extends AppCompatActivity implements View.OnClickL
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
     }
 
     public Snackbar thongBao(String msg) {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,8 @@ import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.ListWord;
 
 import java.util.ArrayList;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
     Preference kmh, nt, ds, color;
@@ -36,7 +39,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 Intent itLockScreenService = new Intent(getApplicationContext(), ServiceLockScreen.class);
                 boolean bl = preference.getSharedPreferences().getBoolean(ToeicWordPreferences.khoa_man_hinh, false);
                 if (getListWord().size() < 2) {
-                    Toast.makeText(getApplicationContext(), "Đánh dấu ít nhất 2 từ để mở chức năng này !", Toast.LENGTH_LONG).show();
+                    alertWhenNull("Bạn có muốn thêm từ để học", "Bạn cần có ít nhất 2 từ đánh dấu !");
                     return false;
                 } else {
                     if (bl) {
@@ -90,12 +93,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     Intent itNhacTu = new Intent(getApplicationContext(), NhacTuService.class);
                     boolean bl = preference.getSharedPreferences().getBoolean(ToeicWordPreferences.nhac_tu, false);
                     if (bl) {
-                        MyLog.e("123" + bl);
                         itNhacTu.putExtra(ToeicWordPreferences.nhac_tu, true);
                         preference.getSharedPreferences().edit().putInt(ToeicWordPreferences.pos_nhac_tu, 0).commit();
                         startService(itNhacTu);
                     } else {
-                        MyLog.e("123" + bl);
                         itNhacTu.putExtra(ToeicWordPreferences.nhac_tu, false);
                         stopService(itNhacTu);
                     }
@@ -104,6 +105,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             });
         }
 
+    }
+
+    public void alertWhenNull(String title, String content) {
+        final SweetAlertDialog dialog = new SweetAlertDialog(SettingsActivity.this);
+        dialog.setTitleText(title);
+        dialog.setContentText(content);
+        dialog.setConfirmText("Đồng ý");
+        dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                startActivity(new Intent(SettingsActivity.this, ListSubjectActivity.class));
+                overridePendingTransition(R.anim.xin_from, R.anim.xin_to);
+                dialog.cancel();
+                finish();
+            }
+        });
+        dialog.setCancelText("Hủy");
+        dialog.setCancelClickListener(null);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        }, 200);
     }
 
     public void thongBao(String msg) {

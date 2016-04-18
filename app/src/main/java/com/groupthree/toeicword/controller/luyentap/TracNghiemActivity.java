@@ -303,6 +303,7 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
                 ct.cancel();
                 ct1.cancel();
                 finish();
+                overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -313,6 +314,7 @@ public class TracNghiemActivity extends AppCompatActivity implements View.OnClic
         ct.cancel();
         ct1.cancel();
         finish();
+        overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
     }
 
     @Override

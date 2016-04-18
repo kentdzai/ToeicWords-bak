@@ -249,6 +249,7 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -257,5 +258,6 @@ public class LuyenNgheActivity extends AppCompatActivity implements View.OnClick
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
     }
 }

@@ -1,7 +1,5 @@
 package com.groupthree.toeicword;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -54,22 +52,8 @@ public class HocTuActivity extends AppCompatActivity implements View.OnClickList
         return adapter;
     }
 
-    public AlertDialog.Builder thongBao1() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(HocTuActivity.this);
-        builder.setTitle("Bạn cần có ít nhất 4 từ đánh dấu !");
-        builder.setMessage("Bạn có muốn thêm từ để học");
-        builder.setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.setPositiveButton("Hủy", null);
-        return builder;
-    }
-
     public void thongBao() {
-        SweetAlertDialog dialog = new SweetAlertDialog(HocTuActivity.this);
+        final SweetAlertDialog dialog = new SweetAlertDialog(HocTuActivity.this);
         dialog.setTitleText("Bạn có muốn thêm từ để học");
         dialog.setContentText("Bạn cần có ít nhất 4 từ đánh dấu !");
         dialog.setConfirmText("Đồng ý");
@@ -77,8 +61,9 @@ public class HocTuActivity extends AppCompatActivity implements View.OnClickList
         dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                Intent it = new Intent(HocTuActivity.this, ListSubjectActivity.class);
-                startActivity(it);
+                startActivity(new Intent(HocTuActivity.this, ListSubjectActivity.class));
+                overridePendingTransition(R.anim.xin_from, R.anim.xin_to);
+                dialog.cancel();
                 finish();
             }
         });
@@ -88,10 +73,10 @@ public class HocTuActivity extends AppCompatActivity implements View.OnClickList
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 startActivity(new Intent(HocTuActivity.this, MainActivity.class));
                 overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
+                dialog.cancel();
                 finish();
             }
         });
-
     }
 
     public void checkNull() {
@@ -116,6 +101,19 @@ public class HocTuActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnHocTu:
+                if (getListWord().size() < 4) {
+                    thongBao();
+                } else {
+                    LuyenTapDialog cdd = new LuyenTapDialog(HocTuActivity.this);
+                    cdd.show();
+                }
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -132,18 +130,5 @@ public class HocTuActivity extends AppCompatActivity implements View.OnClickList
         startActivity(new Intent(HocTuActivity.this, MainActivity.class));
         overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
         finish();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnHocTu:
-                if (getListWord().size() < 4) {
-                    thongBao();
-                } else {
-                    LuyenTapDialog cdd = new LuyenTapDialog(HocTuActivity.this);
-                    cdd.show();
-                }
-        }
     }
 }

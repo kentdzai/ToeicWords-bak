@@ -138,6 +138,7 @@ public class NgheLapActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -146,6 +147,7 @@ public class NgheLapActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        overridePendingTransition(R.anim.xout_from, R.anim.xout_to);
     }
 
     public void onStopActivity() {

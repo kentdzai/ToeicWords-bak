@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
@@ -49,6 +49,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
+    InternetReceiver internetReceiver;
 
     ArrayAdapter<String> adapterSearch;
     ArrayList<String> arrSearch;
@@ -208,15 +209,20 @@ public class MainActivity extends AppCompatActivity
                 finish();
                 break;
             case 1:
-                handleStartActivity(HocTuActivity.class);
-                finish();
+                if (getListWord().size() == 0) {
+                    alertWhenNull("Bạn có muốn thêm từ để học", "Bạn cần có ít nhất 4 từ đánh dấu !");
+                } else {
+                    handleStartActivity(HocTuActivity.class);
+                    finish();
+                }
+
                 break;
             case 2:
                 TextView tvKhoaManHinh = (TextView) view.findViewById(R.id.lvm_title);
                 if (getListWord().size() < 2) {
                     stopService(itLockScreenService);
                     editor.putBoolean(ToeicWordPreferences.khoa_man_hinh, false);
-                    thongBao().show();
+                    alertWhenNull("Bạn có muốn thêm từ để học", "Bạn cần có ít nhất 2 từ đánh dấu !");
                 } else {
                     String kmh = tvKhoaManHinh.getText().toString();
                     if (kmh.equals(btnKhoaManHinh[0])) {
@@ -266,14 +272,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    public void showInfo() {
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MainActivity.this);
-        sweetAlertDialog.setTitleText("Học Từ Vựng Tiếng Anh");
-        sweetAlertDialog.setContentText("Ứng dụng được phát triển bởi nhóm 3" +
-                "\nLớp: PT11151-MOB.");
-        sweetAlertDialog.show();
-    }
-
     public ArrayList<ListWord> getListWord() {
         db = new DatabaseWord(getApplicationContext());
         arrL = db.queryListWord("SELECT Id, Word, Mean, FavouriteWord FROM Word WHERE FavouriteWord = '" + 1 + "'");
@@ -287,22 +285,37 @@ public class MainActivity extends AppCompatActivity
         return arrSearch;
     }
 
-    public AlertDialog.Builder thongBao() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Học từ đã đánh dấu");
-        builder.setMessage("Bạn vui lòng đánh dấu ít nhất 2 từ để thực hiện chức năng này !");
-        builder.setNegativeButton("Đồng ý", new DialogInterface.OnClickListener() {
+    public void showInfo() {
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MainActivity.this);
+        sweetAlertDialog.setTitleText("Học Từ Vựng Tiếng Anh");
+        sweetAlertDialog.setContentText("Ứng dụng được phát triển bởi nhóm 3" +
+                "\nLớp: PT11151-MOB.");
+        sweetAlertDialog.show();
+    }
+
+    public void alertWhenNull(String title, String content) {
+        final SweetAlertDialog dialog = new SweetAlertDialog(MainActivity.this);
+        dialog.setTitleText(title);
+        dialog.setContentText(content);
+        dialog.setConfirmText("Đồng ý");
+        dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
                 startActivity(new Intent(MainActivity.this, ListSubjectActivity.class));
+                overridePendingTransition(R.anim.xin_from, R.anim.xin_to);
+                dialog.cancel();
                 finish();
             }
         });
-        builder.setPositiveButton("Hủy", null);
-        return builder;
+        dialog.setCancelText("Hủy");
+        dialog.setCancelClickListener(null);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        }, 200);
     }
-
-    InternetReceiver internetReceiver;
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -391,7 +404,6 @@ public class MainActivity extends AppCompatActivity
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY).trim();
-
             db = new DatabaseWord(getApplicationContext());
             int result = db.queryIdWithWord(query);
             if (result != -1) {

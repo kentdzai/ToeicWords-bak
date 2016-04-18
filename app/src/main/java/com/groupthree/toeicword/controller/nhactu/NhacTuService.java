@@ -12,14 +12,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.groupthree.toeicword.R;
-import com.groupthree.toeicword.controller.MyLog;
 import com.groupthree.toeicword.model.ToeicWordPreferences;
 import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.Word;
@@ -38,7 +36,6 @@ public class NhacTuService extends Service
     TextView tvWord;
     TextView tvPhonetic;
     TextView tvSortMean;
-    CardView cvNhacTu;
 
     DatabaseWord db;
     ArrayList<Word> arrW;
@@ -100,7 +97,6 @@ public class NhacTuService extends Service
         tvWord = (TextView) view.findViewById(R.id.tvWord);
         tvPhonetic = (TextView) view.findViewById(R.id.tvPhonetic);
         tvSortMean = (TextView) view.findViewById(R.id.tvSortMean);
-        cvNhacTu = (CardView) view.findViewById(R.id.cvNhacTu);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
         }
         if (timer == null) {
@@ -165,9 +161,6 @@ public class NhacTuService extends Service
                 tvPhonetic.setText(phien_am);
                 tvSortMean.setText(w.SortMean);
                 lnNhacTu.setBackgroundColor(color);
-//                cvNhacTu.setBackgroundColor(color);
-                builder.setContentTitle(w.Word);
-                notificationManager.notify(6969, builder.build());
             }
         });
     }
@@ -192,18 +185,10 @@ public class NhacTuService extends Service
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(ToeicWordPreferences.phien_am_nhac_tu)
-                || key.equals(ToeicWordPreferences.color_nhac_tu)) {
+                || key.equals(ToeicWordPreferences.color_nhac_tu)
+                || key.equals(ToeicWordPreferences.time_nhac_tu)) {
             timer.cancel();
             setupLoop();
-        }
-        if (key.equals(ToeicWordPreferences.time_nhac_tu)) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    timer.cancel();
-                    setupLoop();
-                }
-            }, getTime() * 1000);
         }
     }
 
@@ -231,5 +216,4 @@ public class NhacTuService extends Service
             view.setOnTouchListener(new Touch(view, windowManager, parmW));
         }
     }
-
 }
