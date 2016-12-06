@@ -33,6 +33,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.groupthree.toeicword.controller.InternetReceiver;
 import com.groupthree.toeicword.controller.khoamanhinh.LockScreenService;
 import com.groupthree.toeicword.controller.khoamanhinh.ServiceLockScreen;
@@ -49,6 +50,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
+    private FirebaseAnalytics mFirebaseAnalytics;
     InternetReceiver internetReceiver;
 
     ArrayAdapter<String> adapterSearch;
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         setupCheckNetwork();
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
