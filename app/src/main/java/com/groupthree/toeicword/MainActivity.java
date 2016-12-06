@@ -289,7 +289,12 @@ public class MainActivity extends AppCompatActivity
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MainActivity.this);
         sweetAlertDialog.setTitleText("Học Từ Vựng Tiếng Anh");
         sweetAlertDialog.setContentText("Ứng dụng được phát triển bởi nhóm 3" +
-                "\nLớp: PT11151-MOB.");
+                "\nThành viên:" +
+                "\nĐỗ Xuân Trường." +
+                "\nLê Quang Huy" +
+                "\nChu Nguyễn Quyết" +
+                "\nLớp: PT11151-MOB." +
+                "\nFPT Polytechnic.");
         sweetAlertDialog.show();
     }
 
