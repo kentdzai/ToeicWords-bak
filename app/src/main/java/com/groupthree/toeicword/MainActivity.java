@@ -36,6 +36,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.groupthree.toeicword.controller.InternetReceiver;
 import com.groupthree.toeicword.controller.khoamanhinh.LockScreenService;
 import com.groupthree.toeicword.controller.khoamanhinh.ServiceLockScreen;
@@ -52,6 +53,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MainActivity extends AppCompatActivity
         implements AdapterView.OnItemClickListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
+    private FirebaseAnalytics mFirebaseAnalytics;
     InternetReceiver internetReceiver;
 
     ArrayAdapter<String> adapterSearch;
@@ -101,6 +103,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         setupCheckNetwork();
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -304,7 +308,12 @@ public class MainActivity extends AppCompatActivity
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(MainActivity.this);
         sweetAlertDialog.setTitleText("Học Từ Vựng Tiếng Anh");
         sweetAlertDialog.setContentText("Ứng dụng được phát triển bởi nhóm 3" +
-                "\nLớp: PT11151-MOB.");
+                "\nThành viên:" +
+                "\nĐỗ Xuân Trường." +
+                "\nLê Quang Huy" +
+                "\nChu Nguyễn Quyết" +
+                "\nLớp: PT11151-MOB." +
+                "\nFPT Polytechnic.");
         sweetAlertDialog.show();
     }
 
