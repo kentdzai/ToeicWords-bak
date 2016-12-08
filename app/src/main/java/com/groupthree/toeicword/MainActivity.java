@@ -3,15 +3,18 @@ package com.groupthree.toeicword;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -107,6 +110,16 @@ public class MainActivity extends AppCompatActivity
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
         init();
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (!Settings.canDrawOverlays(MainActivity.this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 1234);
+            }
+        } else {
+            Intent intent = new Intent(MainActivity.this, Service.class);
+            startService(intent);
+        }
         itLockScreenService = new Intent(getApplicationContext(), ServiceLockScreen.class);
         if (getListWord().size() < 2) {
             arrN.set(2, new NavigationMain(Image[2], "Bật khóa màn hình"));
@@ -298,6 +311,7 @@ public class MainActivity extends AppCompatActivity
                 "\nLê Quang Huy" +
                 "\nChu Nguyễn Quyết" +
                 "\nLớp: PT11151-MOB." +
+                "\nPhát hành bởi STORM TEAM (SKI2013)" +
                 "\nFPT Polytechnic.");
         sweetAlertDialog.show();
     }

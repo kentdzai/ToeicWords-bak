@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.groupthree.toeicword.controller.MyLog;
 import com.groupthree.toeicword.model.DatabaseWord;
 import com.groupthree.toeicword.model.Subject;
 

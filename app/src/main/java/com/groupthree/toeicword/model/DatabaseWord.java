@@ -17,7 +17,7 @@ public class DatabaseWord extends SQLiteOpenHelper {
     SQLiteDatabase db;
     ContentValues values;
     Context context;
-    public final String DB_PATH = "/data/data/com.groupthree.dictionary/databases/";
+    public final String DB_PATH = "/data/data/com.groupthree.toeicword/databases/";
     public final String DB_NAME = "db_word.db";
 
     public final String TBL_WORD = "Word";
