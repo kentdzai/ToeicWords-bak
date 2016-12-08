@@ -3,18 +3,15 @@ package com.groupthree.toeicword;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -311,7 +308,6 @@ public class MainActivity extends AppCompatActivity
                 "\nLê Quang Huy" +
                 "\nChu Nguyễn Quyết" +
                 "\nLớp: PT11151-MOB." +
-                "\nPhát hành bởi STORM TEAM (SKI2013)" +
                 "\nFPT Polytechnic.");
         sweetAlertDialog.show();
     }
