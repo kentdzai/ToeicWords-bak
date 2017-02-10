@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlLock"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/red_btn_bg_color"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        style="@style/my_layout"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <DigitalClock
+                android:id="@+id/digital_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5/5/2015"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="#20ffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#30ffffff"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="Từ Vựng"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+
+
+        <Button
+            android:id="@+id/btnAns1"
+            style="@style/my_button"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="20dp"
+            android:text="Trả lời 1" />
+
+        <Button
+            android:id="@+id/btnAns2"
+            style="@style/my_button"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginTop="10dp"
+            android:text="Trả lời 2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/tvMoKhoagap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Mở khóa gấp"
+                android:textColor="#fff"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/tvDoiCau"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="Đổi câu"
+                android:textColor="#fff"
+                android:textStyle="italic" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/my_layout"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Trả lời đúng để mở khóa màn hình"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:textStyle="italic" />
+
+    </LinearLayout>
+</RelativeLayout>

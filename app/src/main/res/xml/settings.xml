@@ -1,0 +1,42 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Cài đặt nhắc từ">
+        <SwitchPreference
+            android:key="nhac_tu"
+            android:summaryOff="Tắt nhắc từ"
+            android:summaryOn="Bật nhắc từ"
+            android:title="Nhắc từ" />
+        <SwitchPreference
+            android:key="phien_am_nhac_tu"
+            android:summaryOff="Ẩn phiên âm"
+            android:summaryOn="Hiện phiên âm"
+            android:title="Phiên âm" />
+        <SwitchPreference
+            android:key="color_nhac_tu"
+            android:summaryOff="Tắt màu sắc"
+            android:summaryOn="Bật màu sắc"
+            android:title="Chế độ màu sắc" />
+
+        <ListPreference
+            android:defaultValue="#FF5722"
+            android:entries="@array/pref_color_titles"
+            android:entryValues="@array/pref_color_values"
+            android:key="list_color"
+            android:summary="Chọn để thay đổi màu sắc"
+            android:title="Thay đổi màu sắc" />
+
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/pref_thoi_gian_nhac_tu_titles"
+            android:entryValues="@array/pref_thoi_gian_nhac_tu_values"
+            android:key="time_nhac_tu"
+            android:summary="Chọn thời gian nhắc từ"
+            android:title="Thời gian nhắc từ" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Cài đặt Khóa màn hình">
+        <SwitchPreference
+            android:key="khoa_man_hinh"
+            android:summaryOff="Tắt khóa màn hình"
+            android:summaryOn="Bật khóa màn hình"
+            android:title="Khóa màn hình" />
+    </PreferenceCategory>
+</PreferenceScreen>

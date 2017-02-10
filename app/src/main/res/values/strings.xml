@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">600 Từ Vựng TOEIC</string>
+    <string name="tu_vung_theo_chu_de">Từ vựng theo chủ đề</string>
+    <string name="hoc_tu_kho">Học từ khó</string>
+    <string name="bat_khoa_man_hinh">Bật khóa màn hình</string>
+    <string name="tat_khoa_man_hinh">Tắt khóa màn hình</string>
+    <string name="tat_nhac_tu">Tắt nhắc từ</string>
+    <string name="bat_nhac_tu">BẬT NHẮC TỪ</string>
+    <string name="notify_nhac_nho">Notify nhắc nhở</string>
+    <string name="cai_dat">Cài đặt</string>
+    <string name="them_tu">Thêm từ</string>
+    <string name="like_fanpage">Like Fanpage</string>
+    <string name="huong_dan">Hướng dẫn</string>
+    <string name="title_activity_settings">Cài đặt</string>
+
+    <string name="facebook_app_id">1720730838211803</string>
+    <string name="search_hint">Nhập từ bạn muốn tìm</string>
+    <string name="search_title">Tìm kiếm</string>
+    <string name="share_content_title">Một ứng dụng học từ vựng tiếng anh thật tuyệt vời</string>
+    <string name="image_share_facebook">
+        https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1530451_594845904003981_2510383800762108996_n.jpg?oh=39a9e6b6c53578b9378af38fcd5db749
+        &amp;oe=5787DE5D
+    </string>
+    <string name="url_fanpage">https://www.facebook.com/hoc600tuvungtienganh</string>
+    <string name="share_description">Tải và cài đặt ngay hôm nay</string>
+    <!-- Settings -->
+    <string-array name="pref_thoi_gian_nhac_tu_titles">
+        <item>3 giây</item>
+        <item>4 giây</item>
+        <item>5 giây</item>
+        <item>6 giây</item>
+        <item>7 giây</item>
+        <item>8 giây</item>
+        <item>9 giây</item>
+    </string-array>
+    <string-array name="pref_thoi_gian_nhac_tu_values">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="pref_color_titles">
+        <item>RED</item>
+        <item>PINK</item>
+        <item>PURPLE</item>
+        <item>DEEP PURPLE</item>
+        <item>INDIGO</item>
+        <item>BLUE</item>
+        <item>TEAL</item>
+        <item>GREEN</item>
+        <item>YELLOW</item>
+        <item>ORANGE</item>
+        <item>DEEP ORANGE</item>
+        <item>BROWN</item>
+        <item>BLUE GREY</item>
+    </string-array>
+
+    <string-array name="pref_color_values">
+        <item>#F44336</item>
+        <item>#E91E63</item>
+        <item>#9C27B0</item>
+        <item>#673AB7</item>
+        <item>#3F51B5</item>
+        <item>#2196F3</item>
+        <item>#009688</item>
+        <item>#4CAF50</item>
+        <item>#FFC107</item>
+        <item>#FF9800</item>
+        <item>#FF5722</item>
+        <item>#795548</item>
+        <item>#607D8B</item>
+    </string-array>
+
+</resources>

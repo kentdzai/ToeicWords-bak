@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.groupthree.toeicword">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.PHONE_STATE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+
+        <activity android:name="com.groupthree.toeicword.MainActivity">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.groupthree.toeicword.ListSubjectActivity"
+            android:label="Mời chọn chủ đề"
+            android:parentActivityName="com.groupthree.toeicword.MainActivity" />
+
+        <service android:name="com.groupthree.toeicword.controller.nhactu.NhacTuService" />
+
+        <activity
+            android:name="com.groupthree.toeicword.HelpActivity"
+            android:label="Hướng dẫn"
+            android:parentActivityName="com.groupthree.toeicword.MainActivity" />
+        <activity
+            android:name="com.groupthree.toeicword.ListWordWithSubjectActivity"
+            android:label="Từ Vựng">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.groupthree.toeicword.ListSubjectActivity" />
+        </activity>
+        <activity
+            android:name="com.groupthree.toeicword.SettingsActivity"
+            android:label="@string/title_activity_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.groupthree.toeicword.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.groupthree.toeicword.HocTuActivity"
+            android:label="Học Từ" />
+
+        <receiver android:name=".controller.khoamanhinh.LockScreenReceiver">
+            <intent-filter>
+                <action android:name="test"></action>
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.groupthree.toeicword.controller.khoamanhinh.LockScreenService" />
+        <service android:name=".controller.khoamanhinh.ServiceLockScreen"/>
+
+        <activity
+            android:name="com.groupthree.toeicword.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.groupthree.toeicword.MainActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name="com.groupthree.toeicword.DetailsWord" />
+        <activity
+            android:name="com.groupthree.toeicword.controller.luyentap.TracNghiemActivity"
+            android:label="Trắc Nghiệm"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.groupthree.toeicword.controller.luyentap.LuyenNgheActivity"
+            android:label="Luyện Nghe"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.groupthree.toeicword.controller.luyentap.LuyenNoiActivity"
+            android:label="Luyện Nói"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controller.luyentap.LattuActivity"
+            android:label="Lật Từ"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.groupthree.toeicword.controller.luyentap.NgheLapActivity"
+            android:label="Nghe Lặp"
+            android:screenOrientation="portrait" />
+        <activity android:name="com.groupthree.toeicword.SearchResultsActivity">
+
+        </activity>
+    </application>
+
+</manifest>
